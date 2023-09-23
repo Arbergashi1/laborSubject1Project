@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import "./App.scss";
+import Dashboard from "./Dashboard/Dashboard";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import NewClient from "./ADMINISTRATE/newclient/NewClient";
+import NewEmployee from "./ADMINISTRATE/newemployee/NewEmployee";
+import AppProvider from "./context/appprovider";
+import ClientsList from "./ADMINISTRATE/ListOfClients/ClientsList";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <AppProvider>
+          <Routes>
+            {/* these are the administrate routes */}
+            <Route path="/newClient" element={<NewClient />} />
+            <Route path="/newEmployee" element={<NewEmployee />} />
+            <Route path="/clientsList" element={<ClientsList />} />
+            <Route path="/employeeList" element={<NewEmployee />} />
+            {/* these are the client routes */}
+            <Route path="/" element={<Dashboard />} />
+          </Routes>
+        </AppProvider>
+      </BrowserRouter>
     </div>
   );
 }

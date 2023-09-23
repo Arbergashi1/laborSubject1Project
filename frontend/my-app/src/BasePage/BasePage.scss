@@ -1,0 +1,24 @@
+.baseBage {
+  display: flex;
+  width: 100%;
+  .basePageContainer {
+    flex: 6;
+    margin-left: 205px;
+    .basePagePreNav {
+      background-color: rgb(255, 255, 255);
+      padding: 20px;
+      gap: 20px;
+      height: 5vh;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15),
+        0 6px 20px 0 rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+    }
+
+    .basePageContent {
+      //   background-color: #f3f4f6;
+      height: 100vh;
+      padding: 20px;
+    }
+  }
+}

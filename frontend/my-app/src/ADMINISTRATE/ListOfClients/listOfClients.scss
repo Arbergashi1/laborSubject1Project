@@ -1,0 +1,23 @@
+.toinputsDiv {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  Input {
+    background-color: rgb(244, 244, 244);
+    border: none;
+  }
+}
+.oneInputDiv {
+  Input {
+    background-color: rgb(244, 244, 244);
+    border: none;
+  }
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th {
+  background-color: #1f2937;
+  color: white;
+}
+.ant-table-tbody {
+  padding: 5px;
+}
