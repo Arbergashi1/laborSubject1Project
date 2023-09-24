@@ -2,10 +2,11 @@ import { useSelector } from "react-redux";
 import "./App.scss";
 import Dashboard from "./Dashboard/Dashboard";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import NewClient from "./ADMINISTRATE/newclient/NewClient";
-import NewEmployee from "./ADMINISTRATE/newemployee/NewEmployee";
+import NewEmployee from "./ADMINISTRATE/EmplyeeManagement/NewEmployee";
 import AppProvider from "./context/appprovider";
-import ClientsList from "./ADMINISTRATE/ListOfClients/ClientsList";
+import NewClient from "./ADMINISTRATE/ClientsManagement/newclient/NewClient";
+import ClientsList from "./ADMINISTRATE/ClientsManagement/ListOfClients/ClientsList";
+import EmployeeList from "./ADMINISTRATE/EmplyeeManagement/EmployeeList";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
             <Route path="/newClient" element={<NewClient />} />
             <Route path="/newEmployee" element={<NewEmployee />} />
             <Route path="/clientsList" element={<ClientsList />} />
-            <Route path="/employeeList" element={<NewEmployee />} />
+            <Route path="/employeeList" element={<EmployeeList />} />
             {/* these are the client routes */}
             <Route path="/" element={<Dashboard />} />
           </Routes>

@@ -1,11 +1,11 @@
 import { Input, message } from "antd";
-import BasePage from "../../BasePage/BasePage";
 import "./NewClient.scss";
 import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { AppContext } from "../../context/appcontext";
+import { AppContext } from "../../../context/appcontext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BasePage from "../../../BasePage/BasePage";
 
 const NewClient = () => {
   const { setClinetsList } = useContext(AppContext);
@@ -41,7 +41,7 @@ const NewClient = () => {
 
   const handleSubmit = () => {
     const apiUrl =
-      "https://localhost:44322/api/ClientManagement/CreateNewClient";
+      "https://localhost:44312/api/ClientManagement/CreateNewClient";
     axios.post(apiUrl, clientObject).then((res) => {
       console.log({ res });
       if (res.data.statusCode === 200) {

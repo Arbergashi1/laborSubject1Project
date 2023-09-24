@@ -1,66 +1,55 @@
-import { Divider } from "@mui/material";
-import { Input, Modal, Select, message } from "antd";
-
+import { Divider, Input, Modal, Select, message } from "antd";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { UseDateReader } from "../../hooks/UseDateReader";
 import axios from "axios";
 
-const EditClientModal = ({
+const EditEmployeeModal = ({
   idToEdit,
   setIdToEdit,
-  clinetsList,
-  setClinetsList,
+  employeeList,
+  setEmployeeList,
 }) => {
-  const clientStatusArr = [
-    {
-      value: "ACTIVE",
-      label: "ACTIVE",
-    },
-    {
-      value: "INACTIVE",
-      label: "INACTIVE",
-    },
+  const employeStatusArr = [
+    { value: "ACTIVE", label: "ACTIVE" },
+    { value: "INACTIVE", label: "INACTIVE" },
   ];
-
-  const dataOfClickedClient = clinetsList.find(
-    ({ clientId }) => clientId === idToEdit
+  const dataOfClickedEmployee = employeeList.find(
+    ({ employeeId }) => employeeId === idToEdit
   );
 
   const [editedData, setEditedData] = useState({
-    clientId: dataOfClickedClient.clientId,
-    fullName: dataOfClickedClient.fullName,
-    email: dataOfClickedClient.email,
-    phoneNumber: dataOfClickedClient.phoneNumber,
-    firmName: dataOfClickedClient.firmName,
-    state: dataOfClickedClient.state,
-    address: dataOfClickedClient.address,
-    userType: "Client",
-    userStatus: dataOfClickedClient.userStatus,
-    clientPassword: dataOfClickedClient.clientPassword,
+    employeeId: dataOfClickedEmployee.employeeId,
+    fullName: dataOfClickedEmployee.fullName,
+    email: dataOfClickedEmployee.email,
+    phoneNumber: dataOfClickedEmployee.phoneNumber,
+    state: dataOfClickedEmployee.state,
+    address: dataOfClickedEmployee.address,
+    employeeType: "Employee",
+    employeeStatus: dataOfClickedEmployee.employeeStatus,
+    employeePassword: dataOfClickedEmployee.employeePassword,
+    // createdAt: dataOfClickedEmployee.createdAt,
+    updatedAt: UseDateReader(Date.now()),
   });
 
   const handleEdit = () => {
-    const apiUrl = `https://localhost:44322/api/ClientManagement/EditClientInfo/${idToEdit}`;
+    const apiUrl =
+      "https://localhost:44312/api/EmployeeManagement/EditEmployee/2dc76e15-86fe-4ae0-a9d1-18971860c2b0";
 
-    axios
-      .put(apiUrl, editedData)
-      .then((res) => {
-        if (res.data.statusCode === 200) {
-          message.success(res.data.statusMessage);
-          setClinetsList((prev) =>
-            prev.map((client) =>
-              client.clientId === idToEdit
-                ? { ...client, ...editedData }
-                : client
-            )
-          );
-          setIdToEdit(false);
-        } else {
-          message.success(res.data.statusMessage);
-        }
-        console.log({ res });
-      })
-      .catch((err) => console.log(err));
+    axios.put(apiUrl, editedData).then((res) => {
+      if (res.data.statusCode === 200) {
+        message.success(res.data.statusMessage);
+        setEmployeeList((prev) =>
+          prev.map((employee) =>
+            employee.employeeId === idToEdit
+              ? { ...employee, ...editedData }
+              : employee
+          )
+        );
+        setIdToEdit(false);
+      } else {
+        message.success(res.data.statusMessage);
+      }
+    });
   };
 
   return (
@@ -114,20 +103,23 @@ const EditClientModal = ({
         </div>
         <div className="toinputsDiv">
           <div>
-            <span>Firm Name</span>
-            <Input
-              value={editedData.firmName}
-              onChange={(e) =>
-                setEditedData({ ...editedData, firmName: e.target.value })
-              }
-            />
-          </div>
-          <div>
             <span>State</span>
             <Input
               value={editedData.state}
               onChange={(e) =>
                 setEditedData({ ...editedData, state: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <span>Password</span>
+            <Input
+              value={editedData.employeePassword}
+              onChange={(e) =>
+                setEditedData({
+                  ...editedData,
+                  employeePassword: e.target.value,
+                })
               }
             />
           </div>
@@ -146,25 +138,13 @@ const EditClientModal = ({
         <div>
           <div className="toinputsDiv">
             <div>
-              <span>Password</span>
-              <Input
-                value={editedData.clientPassword}
-                onChange={(e) =>
-                  setEditedData({
-                    ...editedData,
-                    clientPassword: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div>
-              <span>User Status</span>
+              <span>Employee Status</span>
               <Select
                 style={{ width: "100%" }}
-                options={clientStatusArr}
-                value={editedData.userStatus}
+                options={employeStatusArr}
+                value={editedData.employeeStatus}
                 onChange={(e) =>
-                  setEditedData({ ...editedData, userStatus: e })
+                  setEditedData({ ...editedData, employeeStatus: e })
                 }
               />
             </div>
@@ -175,4 +155,4 @@ const EditClientModal = ({
   );
 };
 
-export default EditClientModal;
+export default EditEmployeeModal;

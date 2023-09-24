@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
-import BasePage from "../../BasePage/BasePage";
-import { AppContext } from "../../context/appcontext";
+import { AppContext } from "../../../context/appcontext";
 import { Table } from "antd";
 import { columnDefs } from "./columnDefs";
-import EditClientModal from "./EditClientModal";
 import "./listOfClients.scss";
+import BasePage from "../../../BasePage/BasePage";
+import EditClientModal from "../ListOfClients/EditClientModal.jsx";
 
 const ClientsList = () => {
   const [idToEdit, setIdToEdit] = useState(false);
   const { clinetsList, setClinetsList } = useContext(AppContext);
-  console.log({ clinetsList });
+
   const paginationOptions = {
     pageSize: 6,
   };

@@ -4,11 +4,12 @@ import axios from "axios";
 
 const AppProvider = ({ children }) => {
   const [clinetsList, setClinetsList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
   useEffect(() => {
     async function fetchClientsList() {
       try {
         const clientsListApiUrl =
-          "https://localhost:44322/api/ClientManagement/GetListOfClients";
+          "https://localhost:44312/api/ClientManagement/GetListOfClients";
 
         const response = await axios.get(clientsListApiUrl);
         setClinetsList(response.data.listOfClients);
@@ -16,10 +17,22 @@ const AppProvider = ({ children }) => {
         console.log("Error occurred while fetching registrations:", error);
       }
     }
+    async function fetchEmployeesList() {
+      try {
+        const employeesListApiUrl =
+          "https://localhost:44312/api/EmployeeManagement/GetListOfEmployees";
+
+        const response = await axios.get(employeesListApiUrl);
+        setEmployeeList(response.data.listOfEmployees);
+      } catch (error) {}
+    }
     fetchClientsList();
+    fetchEmployeesList();
   }, []);
   return (
-    <AppContext.Provider value={{ clinetsList, setClinetsList }}>
+    <AppContext.Provider
+      value={{ clinetsList, setClinetsList, employeeList, setEmployeeList }}
+    >
       {children}
     </AppContext.Provider>
   );

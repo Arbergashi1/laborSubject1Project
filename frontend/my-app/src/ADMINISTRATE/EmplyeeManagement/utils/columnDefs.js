@@ -1,19 +1,19 @@
+import { Tooltip, message, notification } from "antd";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, Tooltip, message, notification } from "antd";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import axios from "axios";
 
 export const columnDefs = ({
-  clinetsList,
-  setClinetsList,
+  employeeList,
+  setEmployeeList,
   idToEdit,
   setIdToEdit,
 }) => [
   {
-    title: "Client ID",
-    dataIndex: "clientId",
-    key: "clientId",
+    title: "Employee ID",
+    dataIndex: "employeeId",
+    key: "employeeId",
     align: "center",
     render: (text) => {
       const substringedId = text.substring(0, 8);
@@ -43,12 +43,7 @@ export const columnDefs = ({
     key: "phoneNumber",
     align: "center",
   },
-  {
-    title: "Firm Name",
-    dataIndex: "firmName",
-    key: "firmName",
-    align: "center",
-  },
+
   {
     title: "State",
     dataIndex: "state",
@@ -62,15 +57,15 @@ export const columnDefs = ({
     align: "center",
   },
   {
-    title: "Client Password",
-    dataIndex: "clientPassword",
-    key: "clientPassword",
+    title: "Employee Password",
+    dataIndex: "employeePassword",
+    key: "employeePassword",
     align: "center",
   },
   {
-    title: "User Status",
-    dataIndex: "userStatus",
-    key: "userStatus",
+    title: "Employee Status",
+    dataIndex: "employeeStatus",
+    key: "employeeStatus",
     align: "center",
 
     render: (text) => {
@@ -84,7 +79,7 @@ export const columnDefs = ({
             background:
               text.toLowerCase() === "active"
                 ? "#2EEC1A"
-                : text === "inactive"
+                : text.toLowerCase() === "inactive"
                 ? "#e60023"
                 : "",
           }}
@@ -95,9 +90,9 @@ export const columnDefs = ({
     },
   },
   {
-    title: "User Type",
-    dataIndex: "userType",
-    key: "userType",
+    title: "Employee Type",
+    dataIndex: "employeeType",
+    key: "employeeType",
     align: "center",
   },
   {
@@ -105,9 +100,12 @@ export const columnDefs = ({
     key: "clientId",
     align: "center",
     render: (_, record) => {
+      const details = employeeList.find(
+        ({ employeeId }) => employeeId === record.employeeId
+      );
       const showDetailsNotification = (id) => {
         notification.open({
-          message: "Client Details",
+          message: "Employee Details",
           duration: 30,
           placement: "bottomRight",
           description: [
@@ -118,10 +116,23 @@ export const columnDefs = ({
                 background: "lightgray",
                 padding: "10px",
                 borderRadius: "10px",
+                marginBottom: "10px",
               }}
             >
               <div>Created At</div>
-              <div>mm/yy/dd</div>
+              <div>{details.createdAt}</div>
+            </div>,
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                background: "lightgray",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
+            >
+              <div>Updated At</div>
+              <div>{details.updatedAt}</div>
             </div>,
           ],
         });
@@ -131,19 +142,18 @@ export const columnDefs = ({
       };
 
       const handleDelete = (id) => {
-        const updatedClientList = clinetsList.filter(
-          ({ clientId }) => clientId !== id
+        const apiUrl = `https://localhost:44312/api/EmployeeManagement/DeleteEmployee/${id}`;
+        const updatedEmployeeList = employeeList.filter(
+          ({ employeeId }) => employeeId !== id
         );
-        const apiUrl = `https://localhost:44322/api/ClientManagement/DeleteClient/${id}`;
-        console.log({ apiUrl });
         axios
           .delete(apiUrl)
           .then((res) => {
-            if (res.data.statusCode == 200) {
+            if (res.data.statusCode === 200) {
               message.success(res.data.statusMessage);
-              setClinetsList(updatedClientList);
+              setEmployeeList(updatedEmployeeList);
             } else {
-              message.error(res.data.statusMessage);
+              message.success(res.data.statusMessage);
             }
           })
           .catch((err) => console.log({ err }));
@@ -156,7 +166,7 @@ export const columnDefs = ({
               <Tooltip title="Delete">
                 <DeleteIcon
                   color="error"
-                  onClick={() => handleDelete(record.clientId)}
+                  onClick={() => handleDelete(record.employeeId)}
                 />
               </Tooltip>
             </a>
@@ -164,7 +174,7 @@ export const columnDefs = ({
               <Tooltip title="Edit">
                 <EditIcon
                   color="primary"
-                  onClick={() => handleIdToEdit(record.clientId)}
+                  onClick={() => handleIdToEdit(record.employeeId)}
                 />
               </Tooltip>
             </a>
