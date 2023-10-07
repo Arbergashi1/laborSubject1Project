@@ -17,7 +17,6 @@ export const columnDefs = ({
     align: "center",
     render: (text) => {
       const substringedId = text.substring(0, 8);
-      console.log({ substringedId });
       return (
         <div>
           <Tooltip title={text}>{substringedId}..</Tooltip>.
@@ -135,7 +134,6 @@ export const columnDefs = ({
           ({ clientId }) => clientId !== id
         );
         const apiUrl = `https://localhost:44312/api/ClientManagement/DeleteClient/${id}`;
-        console.log({ apiUrl });
         axios
           .delete(apiUrl)
           .then((res) => {

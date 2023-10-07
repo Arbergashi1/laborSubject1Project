@@ -18,7 +18,7 @@ const EditEmployeeModal = ({
   );
 
   const [editedData, setEditedData] = useState({
-    employeeId: dataOfClickedEmployee.employeeId,
+    // employeeId: dataOfClickedEmployee.employeeId,
     fullName: dataOfClickedEmployee.fullName,
     email: dataOfClickedEmployee.email,
     phoneNumber: dataOfClickedEmployee.phoneNumber,
@@ -32,8 +32,7 @@ const EditEmployeeModal = ({
   });
 
   const handleEdit = () => {
-    const apiUrl =
-      "https://localhost:44312/api/EmployeeManagement/EditEmployee/2dc76e15-86fe-4ae0-a9d1-18971860c2b0";
+    const apiUrl = `https://localhost:44312/api/EmployeeManagement/EditEmployee/${idToEdit}`;
 
     axios.put(apiUrl, editedData).then((res) => {
       if (res.data.statusCode === 200) {

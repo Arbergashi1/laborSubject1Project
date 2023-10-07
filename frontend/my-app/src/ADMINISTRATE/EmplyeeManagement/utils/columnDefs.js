@@ -3,12 +3,15 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
+import { Drawer } from "@mui/material";
 
 export const columnDefs = ({
   employeeList,
   setEmployeeList,
   idToEdit,
   setIdToEdit,
+  openDrawer,
+  setOpenDrawer,
 }) => [
   {
     title: "Employee ID",
@@ -17,7 +20,6 @@ export const columnDefs = ({
     align: "center",
     render: (text) => {
       const substringedId = text.substring(0, 8);
-      console.log({ substringedId });
       return (
         <div>
           <Tooltip title={text}>{substringedId}..</Tooltip>.
@@ -100,43 +102,14 @@ export const columnDefs = ({
     key: "clientId",
     align: "center",
     render: (_, record) => {
-      const details = employeeList.find(
-        ({ employeeId }) => employeeId === record.employeeId
-      );
-      const showDetailsNotification = (id) => {
-        notification.open({
-          message: "Employee Details",
-          duration: 30,
-          placement: "bottomRight",
-          description: [
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                background: "lightgray",
-                padding: "10px",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              <div>Created At</div>
-              <div>{details.createdAt}</div>
-            </div>,
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                background: "lightgray",
-                padding: "10px",
-                borderRadius: "10px",
-              }}
-            >
-              <div>Updated At</div>
-              <div>{details.updatedAt}</div>
-            </div>,
-          ],
-        });
-      };
+      // notification.open({
+      //   message: "Employee Details",
+      //   duration: 30,
+      //   placement: "bottomRight",
+      //   description: [
+      //
+      //   ],
+      // });
       const handleIdToEdit = (id) => {
         setIdToEdit(id);
       };
@@ -182,7 +155,7 @@ export const columnDefs = ({
               <Tooltip title="View Details">
                 <RemoveRedEyeIcon
                   color="secondary"
-                  onClick={() => showDetailsNotification(record.clientId)}
+                  onClick={() => setOpenDrawer(record.employeeId)}
                 />
               </Tooltip>
             </a>

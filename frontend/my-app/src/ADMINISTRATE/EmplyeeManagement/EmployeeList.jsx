@@ -1,13 +1,17 @@
 import React, { useContext, useState } from "react";
 import BasePage from "../../BasePage/BasePage";
 import { AppContext } from "../../context/appcontext";
-import { Table } from "antd";
+import { Drawer, Table } from "antd";
 import { columnDefs } from "./utils/columnDefs";
 import EditEmployeeModal from "./EditEmployeeModal";
 
 const EmployeeList = () => {
   const [idToEdit, setIdToEdit] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
   const { employeeList, setEmployeeList } = useContext(AppContext);
+  const details = employeeList.find(
+    ({ employeeId }) => employeeId === openDrawer
+  );
   const paginationOptions = {
     pageSize: 6,
   };
@@ -27,6 +31,8 @@ const EmployeeList = () => {
             setEmployeeList,
             idToEdit,
             setIdToEdit,
+            openDrawer,
+            setOpenDrawer,
           })}
           dataSource={employeeList}
           pagination={paginationOptions}
@@ -37,6 +43,38 @@ const EmployeeList = () => {
           {...{ idToEdit, setIdToEdit, employeeList, setEmployeeList }}
         />
       )}
+      <Drawer
+        open={openDrawer}
+        placement="right"
+        onClose={() => setOpenDrawer(false)}
+        title={`Deatils for - ${openDrawer}`}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            background: "lightgray",
+            padding: "10px",
+            borderRadius: "10px",
+            marginBottom: "10px",
+          }}
+        >
+          <div>Created At</div>
+          <div>{details?.createdAt}</div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            background: "lightgray",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          <div>Updated At</div>
+          <div>{details?.updatedAt}</div>
+        </div>
+      </Drawer>
     </BasePage>
   );
 };

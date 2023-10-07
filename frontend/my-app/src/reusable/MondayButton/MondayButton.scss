@@ -1,0 +1,24 @@
+.mondayButton {
+  padding: 5px;
+  border-radius: 5px;
+  width: 50%;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+  border: none;
+  font-size: 17px;
+}
+.mondayButtonRed {
+  background-color: rgb(201, 31, 31);
+  @extend .mondayButton;
+}
+
+.mondayButtonGreen {
+  background-color: rgb(31, 201, 31);
+  @extend .mondayButton;
+}
+
+.mondayButtonBlue {
+  background-color: rgb(21, 88, 222);
+  @extend .mondayButton;
+}

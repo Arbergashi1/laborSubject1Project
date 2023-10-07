@@ -6,6 +6,7 @@ import { AppContext } from "../../context/appcontext";
 import { Input, message } from "antd";
 import { UseDateReader } from "../../hooks/UseDateReader";
 import axios from "axios";
+import MondayButton from "../../reusable/MondayButton/MondayButton";
 
 const NewEmployee = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const NewEmployee = () => {
   const [emplyeeObject, setEmplyeeObject] = useState({
     employeeId: uuidv4(),
     fullName: "",
-    email: "",
+    email: "employeeC_",
     phoneNumber: "",
     state: "",
     address: "",
@@ -24,7 +25,6 @@ const NewEmployee = () => {
     createdAt: UseDateReader(Date.now()),
     updatedAt: UseDateReader(Date.now()),
   });
-  console.log({ emplyeeObject });
 
   const resetFields = () => {
     setEmplyeeObject({
@@ -77,9 +77,22 @@ const NewEmployee = () => {
             <span>Employee Email</span>
             <Input
               value={emplyeeObject.email}
-              onChange={(e) =>
-                setEmplyeeObject({ ...emplyeeObject, email: e.target.value })
-              }
+              onChange={(e) => {
+                const inputValue = e.target.value;
+                if (inputValue === "") {
+                  setEmplyeeObject({
+                    ...emplyeeObject,
+                    email: "employeeC_",
+                  });
+                } else if (inputValue.startsWith("employeeC_")) {
+                  setEmplyeeObject({ ...emplyeeObject, email: inputValue });
+                } else {
+                  setEmplyeeObject({
+                    ...emplyeeObject,
+                    email: "employeeC_" + inputValue,
+                  });
+                }
+              }}
               placeholder="Type Employee Email here..."
               style={{ width: "" }}
             />
@@ -138,12 +151,13 @@ const NewEmployee = () => {
         </div>
 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <button
+          <MondayButton
             style={{ width: "50%", padding: "10px" }}
             onClick={handleSubmit}
+            className="Green"
           >
             submit
-          </button>
+          </MondayButton>
         </div>
       </div>
     </BasePage>

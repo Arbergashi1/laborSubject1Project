@@ -58,7 +58,6 @@ const EditClientModal = ({
         } else {
           message.success(res.data.statusMessage);
         }
-        console.log({ res });
       })
       .catch((err) => console.log(err));
   };

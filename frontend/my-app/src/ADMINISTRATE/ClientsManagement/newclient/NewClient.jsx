@@ -6,6 +6,7 @@ import { AppContext } from "../../../context/appcontext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BasePage from "../../../BasePage/BasePage";
+import MondayButton from "../../../reusable/MondayButton/MondayButton";
 
 const NewClient = () => {
   const { setClinetsList } = useContext(AppContext);
@@ -23,7 +24,6 @@ const NewClient = () => {
     userStatus: "ACTIVE",
     clientPassword: "",
   });
-  console.log({ clientObject });
 
   const resetFields = () => {
     setClientObject({
@@ -43,7 +43,6 @@ const NewClient = () => {
     const apiUrl =
       "https://localhost:44312/api/ClientManagement/CreateNewClient";
     axios.post(apiUrl, clientObject).then((res) => {
-      console.log({ res });
       if (res.data.statusCode === 200) {
         message.success(res.data.statusMessage);
         setClinetsList((prev) => [clientObject, ...prev]);
@@ -145,12 +144,13 @@ const NewClient = () => {
         </div>
 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <button
+          <MondayButton
             style={{ width: "50%", padding: "10px" }}
             onClick={handleSubmit}
+            className="Green"
           >
             submit
-          </button>
+          </MondayButton>
         </div>
       </div>
     </BasePage>

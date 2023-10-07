@@ -1,0 +1,35 @@
+.userTypeLoginWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  height: 66vh;
+  .text {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .usersTypesDiv {
+    display: flex;
+    gap: 10px;
+
+    .singleUserButton {
+      text-align: center;
+      background-color: #1677ff;
+      border: none;
+      padding: 15px;
+      width: 130px;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .singleUserButton:hover {
+      background-color: #0d68e6;
+    }
+  }
+}
