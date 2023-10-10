@@ -49,7 +49,7 @@ const NewClient = () => {
         resetFields();
         navigate("/clientsList");
       } else {
-        message.success(res.data.statusMessage);
+        message.error(res.data.statusMessage);
       }
     });
   };

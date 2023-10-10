@@ -1,7 +1,7 @@
 .mondayButton {
   padding: 5px;
   border-radius: 5px;
-  width: 50%;
+  width: 200px;
   cursor: pointer;
   color: white;
   font-weight: 500;
@@ -20,5 +20,9 @@
 
 .mondayButtonBlue {
   background-color: rgb(21, 88, 222);
+  @extend .mondayButton;
+}
+.mondayButtonYellow {
+  background-color: rgb(222, 182, 21);
   @extend .mondayButton;
 }

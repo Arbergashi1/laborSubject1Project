@@ -1,9 +1,8 @@
-import { Tooltip, message, notification } from "antd";
+import { Tooltip, message } from "antd";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
-import { Drawer } from "@mui/material";
 
 export const columnDefs = ({
   employeeList,
@@ -102,14 +101,6 @@ export const columnDefs = ({
     key: "clientId",
     align: "center",
     render: (_, record) => {
-      // notification.open({
-      //   message: "Employee Details",
-      //   duration: 30,
-      //   placement: "bottomRight",
-      //   description: [
-      //
-      //   ],
-      // });
       const handleIdToEdit = (id) => {
         setIdToEdit(id);
       };

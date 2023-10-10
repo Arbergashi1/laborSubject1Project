@@ -8,7 +8,6 @@ const Login = ({
   loginObject,
   setLoginData,
 }) => {
-  console.log({ loginObject });
   return (
     <div
       style={{

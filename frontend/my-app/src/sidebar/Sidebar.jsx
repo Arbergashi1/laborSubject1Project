@@ -23,8 +23,8 @@ const Sidebar = () => {
     navigate("/auth");
     sessionStorage.removeItem("clientLoggedInId");
     sessionStorage.removeItem("empAdmLoggedInId");
-    if (currentUserLoggedIn !== undefined) {
-      setCurrentUserLoggedIn(undefined);
+    if (currentUserLoggedIn !== null) {
+      setCurrentUserLoggedIn(null);
     }
   };
 
@@ -38,7 +38,7 @@ const Sidebar = () => {
       {currentUserLoggedIn?.userType === "Client" && (
         <div className="center">
           <ul>
-            <p className="title">Users Management</p>
+            <p className="title">Shipments Management</p>
             {sideBarElements.slice(0, 2).map((el) => {
               return (
                 <>

@@ -11,14 +11,14 @@ import BadgeIcon from "@mui/icons-material/Badge";
 
 export const sideBarElements = [
   {
-    label: "Dashboard",
+    label: "Shipments List",
     icon: <DashboardIcon />,
     path: "/",
   },
   {
     label: "New Shipment",
     icon: <AddBoxIcon />,
-    path: "/newShippment",
+    path: "/newShipment",
   },
   {
     label: "Insights",

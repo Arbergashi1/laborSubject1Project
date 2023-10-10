@@ -58,15 +58,10 @@ const UserTypeLogIn = ({}) => {
       userTypeSelected === "Administrate"
     ) {
       axios.post(employeeApiUrl, loginObject).then((res) => {
-        console.log({ res });
-        console.log({ loginObject });
-        console.log({ userTypeSelected });
-
         if (res.data.statusCode === 200) {
           message.success(res.data.statusMessage);
           navigate("/clientsList");
           setLoginData(res.data.employeeManagement);
-          console.log({ res });
           sessionStorage.setItem(
             "empAdmLoggedInId",
             res.data.employeeManagement.employeeId

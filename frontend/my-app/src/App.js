@@ -1,13 +1,15 @@
 import "./App.scss";
-import Dashboard from "./Dashboard/Dashboard";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import NewEmployee from "./ADMINISTRATE/EmplyeeManagement/NewEmployee";
 import NewClient from "./ADMINISTRATE/ClientsManagement/newclient/NewClient";
 import ClientsList from "./ADMINISTRATE/ClientsManagement/ListOfClients/ClientsList";
 import EmployeeList from "./ADMINISTRATE/EmplyeeManagement/EmployeeList";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "./context/appcontext";
 import UserTypeLogIn from "./LOGIN/prelogin/UserTypeLogIn";
+import ShipmentsList from "./CLIENT/ShipmentsManagement/ShipmentList/ShipmentsList";
+import NewShipment from "./CLIENT/ShipmentsManagement/NewShipment/NewShipment";
+import { message } from "antd";
 
 function App() {
   const { currentUserLoggedIn } = useContext(AppContext);
@@ -15,19 +17,34 @@ function App() {
 
   return (
     <Routes>
-      {currentUserLoggedIn === undefined ? (
-        <Route path="/auth" element={<UserTypeLogIn />} />
-      ) : currentUserLoggedIn?.userType === "Client" ? (
-        <Route path="/" element={<Dashboard />} />
-      ) : currentUserLoggedIn?.employeeType === "Administrate" ? (
+      {/* public route */}
+      <Route path="/auth" element={<UserTypeLogIn />} />
+      {/* private routes */}
+      {currentUserLoggedIn !== null ? (
         <>
-          <Route path="/newClient" element={<NewClient />} />
-          <Route path="/newEmployee" element={<NewEmployee />} />
-          <Route path="/clientsList" element={<ClientsList />} />
-          <Route path="/employeeList" element={<EmployeeList />} />
+          {currentUserLoggedIn?.userType === "Client" ? (
+            <>
+              <Route path="/" element={<ShipmentsList />} />
+              <Route path="/newShipment" element={<NewShipment />} />
+            </>
+          ) : currentUserLoggedIn?.employeeType === "Administrate" ? (
+            <>
+              <Route path="/newClient" element={<NewClient />} />
+              <Route path="/newEmployee" element={<NewEmployee />} />
+              <Route path="/clientsList" element={<ClientsList />} />
+              <Route path="/employeeList" element={<EmployeeList />} />
+            </>
+          ) : (
+            <></>
+          )}
         </>
       ) : (
-        <></>
+        <>
+          {/* <Route path="*" element={<Navigate to="/auth" />} />*/}
+          {currentUserLoggedIn === null ||
+            (currentUserLoggedIn === undefined &&
+              message.warning("please login to continue"))}
+        </>
       )}
     </Routes>
   );
