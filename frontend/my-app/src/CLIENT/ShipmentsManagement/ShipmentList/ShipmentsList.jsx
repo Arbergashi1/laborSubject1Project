@@ -1,7 +1,7 @@
 import { Divider, Input, Modal, Select, Table, message } from "antd";
 import BasePage from "../../../BasePage/BasePage";
 import { AppContext } from "../../../context/appcontext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import getColumnDefs from "./getColumnDefs";
 import "./ShipmentsList.scss";
 import ScaleLoader from "react-spinners/ScaleLoader";
@@ -9,12 +9,18 @@ import MondayButton from "../../../reusable/MondayButton/MondayButton";
 import "../../../ADMINISTRATE/ClientsManagement/ListOfClients/listOfClients.scss";
 import { UseDateReader } from "../../../hooks/UseDateReader";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ShipmentsList = () => {
+  const navigate = useNavigate();
+
   const { preferences } = useContext(AppContext);
-  const { setShipmentsList, currentUserLoggedIn } = useContext(AppContext);
+  const { setShipmentsList, currentUserLoggedIn, shipmentsList } =
+    useContext(AppContext);
   const [idToEdit, setIdToEdit] = useState(false);
   const [editedData, setEditedData] = useState({});
+  console.log({ shipmentsList });
+  console.log({ preferences });
 
   const editHanlder = (record) => {
     setIdToEdit(true);
@@ -26,6 +32,7 @@ const ShipmentsList = () => {
       ...editedData,
       updatedAt: UseDateReader(Date.now()),
     };
+    console.log({ editObject });
 
     delete editObject.notes;
     delete editObject.createdAt;
@@ -33,6 +40,7 @@ const ShipmentsList = () => {
 
     const apiUrl = `https://localhost:44312/api/ShipmentsManagement/EditShipmentInfo/${editedData.shipmentId}`;
     axios.put(apiUrl, editObject).then((res) => {
+      console.log({ res });
       if (res.data.statusCode === 200) {
         message.success(res.data.statusMessage);
         setEditedData(editObject);
@@ -53,6 +61,21 @@ const ShipmentsList = () => {
   const paginationOptions = {
     pageSize: 6,
   };
+
+  const printHandler = (record) => {
+    navigate(`/printShipment/${record.shipmentId}`, {
+      state: {
+        record,
+      },
+    });
+  };
+
+  // const goToTop = () => {
+  //   window.scrollTo(0, 0);
+  // };
+  // useEffect(() => {
+  //   goToTop();
+  // }, []);
   return (
     <BasePage {...{ preNavName: "Shipments List" }}>
       <Table
@@ -64,6 +87,7 @@ const ShipmentsList = () => {
           idToEdit,
           setIdToEdit,
           editHanlder,
+          printHandler,
         })}
         dataSource={preferences}
         pagination={paginationOptions}
@@ -170,6 +194,7 @@ const ShipmentsList = () => {
                 <div>
                   <span>Reference</span>
                   <Input
+                    disabled
                     value={editedData.reference}
                     onChange={(e) =>
                       setEditedData({

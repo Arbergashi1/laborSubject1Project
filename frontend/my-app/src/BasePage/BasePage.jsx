@@ -9,8 +9,8 @@ const BasePage = ({ preNavName, children }) => {
       <Sidebar />
       <div className="basePageContainer">
         <Navbar />
-        <div className="basePagePreNav">
-          <h2>{preNavName}</h2>
+        <div className="basePageTabs">
+          <h2 className="basePageTab">{preNavName}</h2>
         </div>
         <div className="basePageContent">{children}</div>
       </div>

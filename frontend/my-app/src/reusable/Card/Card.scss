@@ -1,0 +1,20 @@
+.cardWrapper {
+  //   background-color: antiquewhite;
+  width: 20%;
+  border-radius: 20px;
+  padding: 20px;
+  .cardElements {
+    color: white;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 600;
+    .cardElementNumber {
+      text-align: center;
+      font-size: 30px;
+    }
+    .cardElementText {
+    }
+  }
+}

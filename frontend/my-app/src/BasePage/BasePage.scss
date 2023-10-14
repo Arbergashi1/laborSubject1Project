@@ -4,15 +4,19 @@
   .basePageContainer {
     flex: 6;
     margin-left: 205px;
-    .basePagePreNav {
+    .basePageTabs {
       background-color: rgb(255, 255, 255);
-      padding: 20px;
+      padding: 20px 0 20px;
       gap: 20px;
-      height: 5vh;
+      height: 4vh;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15),
         0 6px 20px 0 rgba(0, 0, 0, 0.15);
       display: flex;
       align-items: center;
+      .basePageTab {
+        border-right: 1px solid rgba(207, 207, 207, 0.529);
+        padding: 19px;
+      }
     }
 
     .basePageContent {

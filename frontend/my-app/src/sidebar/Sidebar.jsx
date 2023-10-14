@@ -65,6 +65,34 @@ const Sidebar = () => {
               );
             })}
           </ul>
+          <ul>
+            <p className="title">Insights</p>
+            {sideBarElements.slice(2, 3).map((el) => {
+              return (
+                <>
+                  <Link
+                    key={el.label}
+                    to={el.path}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                    }}
+                  >
+                    <li className={isActive(el.path) ? "active" : ""}>
+                      {el.icon}
+                      <span
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        {el.label}
+                      </span>
+                    </li>
+                  </Link>
+                </>
+              );
+            })}
+          </ul>
         </div>
       )}
       {currentUserLoggedIn?.employeeType === "Administrate" && (

@@ -10,6 +10,8 @@ import UserTypeLogIn from "./LOGIN/prelogin/UserTypeLogIn";
 import ShipmentsList from "./CLIENT/ShipmentsManagement/ShipmentList/ShipmentsList";
 import NewShipment from "./CLIENT/ShipmentsManagement/NewShipment/NewShipment";
 import { message } from "antd";
+import Inisgts from "./CLIENT/Insights/Inisgts";
+import PrintShipment from "./CLIENT/ShipmentsManagement/printShipment/PrintShipment";
 
 function App() {
   const { currentUserLoggedIn } = useContext(AppContext);
@@ -26,6 +28,11 @@ function App() {
             <>
               <Route path="/" element={<ShipmentsList />} />
               <Route path="/newShipment" element={<NewShipment />} />
+              <Route path="/insights" element={<Inisgts />} />
+              <Route
+                path="/printShipment/:shipmentId"
+                element={<PrintShipment />}
+              />
             </>
           ) : currentUserLoggedIn?.employeeType === "Administrate" ? (
             <>

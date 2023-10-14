@@ -1,0 +1,453 @@
+import "./PrintShipment.scss";
+import Logo from "../../../sidebar/utils/logoOfLab.png";
+import { useLocation } from "react-router-dom";
+
+const PrintShipment = () => {
+  const location = useLocation();
+  const { record } = location.state;
+
+  return (
+    <>
+      <div className="print-wrapper">
+        <div className="wpcargo-result-print">
+          <div className="printheader" style={{ width: "100%" }}>
+            <table style={{ width: "100%" }}>
+              <tbody>
+                <tr>
+                  <td style={{ textAlign: "center" }}>
+                    <img src={Logo} height={50} />
+                  </td>
+                  <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={"https://img.icons8.com/ios/100/barcode.png"}
+                      width={250}
+                    />
+                    #{record.shipmentId}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="print-shipper-info">
+              <div className="col-6" style={{ float: "left", width: "50%" }}>
+                <table style={{ width: "100%" }}>
+                  <tbody>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">pickup at</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Address</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">City</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="col-6" style={{ float: "right", width: "50%" }}>
+                <table
+                  style={{
+                    width: "90%",
+                    marginLeft: "15px",
+                    marginBottom: "5px",
+                  }}
+                >
+                  <tbody>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">Deliver To</div>
+                        <div className="sender_row_body">{record.name}</div>
+                      </td>
+                      <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                        <td
+                          style={{
+                            border: "solid 1px #000",
+                            paddingLeft: "5px",
+                          }}
+                          // colSpan="3"
+                        >
+                          <div className="sender_row_title">COD</div>
+                          <div className="sender_row_body">
+                            {record.reference}
+                          </div>
+                        </td>
+                      </tr>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">Address</div>
+                        <div className="sender_row_body">{record.address}</div>
+                      </td>
+                    </tr>
+
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">City</div>
+                        <div className="sender_row_body">{record.city}</div>
+                      </td>
+                    </tr>
+
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Phone Number</div>
+                        <div className="sender_row_body">{record.phone}</div>
+                      </td>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="2"
+                      >
+                        <div className="sender_row_title">A lejohet hapja</div>
+                        <div className="sender_row_body">
+                          {record.doYouLetOpen}
+                        </div>
+                      </td>
+                      <td colSpan="2"></td>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Created At</div>
+                        <div className="sender_row_body">
+                          {record.updatedAt}
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* {} */}
+      <div className="print-wrapper">
+        <div className="wpcargo-result-print">
+          <div className="printheader" style={{ width: "100%" }}>
+            <table style={{ width: "100%" }}>
+              <tbody>
+                <tr>
+                  <td style={{ textAlign: "center" }}>
+                    <img src={Logo} height={50} />
+                  </td>
+                  <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={"https://img.icons8.com/ios/100/barcode.png"}
+                      width={250}
+                    />
+                    #{record.shipmentId}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="print-shipper-info">
+              <div className="col-6" style={{ float: "left", width: "50%" }}>
+                <table style={{ width: "100%" }}>
+                  <tbody>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">pickup at</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Address</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">City</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="col-6" style={{ float: "right", width: "50%" }}>
+                <table
+                  style={{
+                    width: "90%",
+                    marginLeft: "15px",
+                    marginBottom: "5px",
+                  }}
+                >
+                  <tbody>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">Deliver To</div>
+                        <div className="sender_row_body">{record.name}</div>
+                      </td>
+                      <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                        <td
+                          style={{
+                            border: "solid 1px #000",
+                            paddingLeft: "5px",
+                          }}
+                          // colSpan="3"
+                        >
+                          <div className="sender_row_title">COD</div>
+                          <div className="sender_row_body">
+                            {record.reference}
+                          </div>
+                        </td>
+                      </tr>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">Address</div>
+                        <div className="sender_row_body">{record.address}</div>
+                      </td>
+                    </tr>
+
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">City</div>
+                        <div className="sender_row_body">{record.city}</div>
+                      </td>
+                    </tr>
+
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Phone Number</div>
+                        <div className="sender_row_body">{record.phone}</div>
+                      </td>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="2"
+                      >
+                        <div className="sender_row_title">A lejohet hapja</div>
+                        <div className="sender_row_body">
+                          {record.doYouLetOpen}
+                        </div>
+                      </td>
+                      <td colSpan="2"></td>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Created At</div>
+                        <div className="sender_row_body">
+                          {record.updatedAt}
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* {} */}
+      <div className="print-wrapper">
+        <div className="wpcargo-result-print">
+          <div className="printheader" style={{ width: "100%" }}>
+            <table style={{ width: "100%" }}>
+              <tbody>
+                <tr>
+                  <td style={{ textAlign: "center" }}>
+                    <img src={Logo} height={50} />
+                  </td>
+                  <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
+                  <td
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={"https://img.icons8.com/ios/100/barcode.png"}
+                      width={250}
+                    />
+                    #{record.shipmentId}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="print-shipper-info">
+              <div className="col-6" style={{ float: "left", width: "50%" }}>
+                <table style={{ width: "100%" }}>
+                  <tbody>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">pickup at</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Address</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">City</div>
+                        <div className="sender_row_body">{record?.city}</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="col-6" style={{ float: "right", width: "50%" }}>
+                <table
+                  style={{
+                    width: "90%",
+                    marginLeft: "15px",
+                    marginBottom: "5px",
+                  }}
+                >
+                  <tbody>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">Deliver To</div>
+                        <div className="sender_row_body">{record.name}</div>
+                      </td>
+                      <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                        <td
+                          style={{
+                            border: "solid 1px #000",
+                            paddingLeft: "5px",
+                          }}
+                          // colSpan="3"
+                        >
+                          <div className="sender_row_title">COD</div>
+                          <div className="sender_row_body">
+                            {record.reference}
+                          </div>
+                        </td>
+                      </tr>
+                    </tr>
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">Address</div>
+                        <div className="sender_row_body">{record.address}</div>
+                      </td>
+                    </tr>
+
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="3"
+                      >
+                        <div className="sender_row_title">City</div>
+                        <div className="sender_row_body">{record.city}</div>
+                      </td>
+                    </tr>
+
+                    <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Phone Number</div>
+                        <div className="sender_row_body">{record.phone}</div>
+                      </td>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                        colSpan="2"
+                      >
+                        <div className="sender_row_title">A lejohet hapja</div>
+                        <div className="sender_row_body">
+                          {record.doYouLetOpen}
+                        </div>
+                      </td>
+                      <td colSpan="2"></td>
+                      <td
+                        style={{ border: "solid 1px #000", paddingLeft: "5px" }}
+                      >
+                        <div className="sender_row_title">Created At</div>
+                        <div className="sender_row_body">
+                          {record.updatedAt}
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "20px",
+        }}
+      ></div>
+    </>
+  );
+};
+
+export default PrintShipment;

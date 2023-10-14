@@ -6,12 +6,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import axios from "axios";
 
-const getColumnDefs = ({
-  setShipmentsList,
-  idToEdit,
-  setIdToEdit,
-  editHanlder,
-}) => [
+const getColumnDefs = ({ setShipmentsList, editHanlder, printHandler }) => [
   {
     title: "Created at",
     dataIndex: "createdAt",
@@ -138,7 +133,7 @@ const getColumnDefs = ({
           </a>
           <a>
             <Tooltip title="Print Shipment">
-              <PrintIcon />
+              <PrintIcon onClick={() => printHandler(record)} />
             </Tooltip>
           </a>
           <a>

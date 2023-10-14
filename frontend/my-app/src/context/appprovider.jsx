@@ -72,7 +72,10 @@ const AppProvider = ({ children }) => {
           "https://localhost:44312/api/ShipmentsManagement/GetListOfShipments";
 
         const response = await axios.get(shipmentsListApiUrl);
-        setShipmentsList(response.data.listOfShipments);
+        const sortedData = response.data.listOfShipments.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setShipmentsList(sortedData);
       } catch (error) {
         console.log("Error occurred while fetching registrations:", error);
       }
