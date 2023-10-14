@@ -60,7 +60,7 @@ const getColumnDefs = ({ setShipmentsList, editHanlder, printHandler }) => [
       return (
         <span
           style={{
-            padding: "15px",
+            padding: "10px",
             borderRadius: "10px",
             fontWeight: "600",
             color: "white",
@@ -74,6 +74,9 @@ const getColumnDefs = ({ setShipmentsList, editHanlder, printHandler }) => [
                 : status === "Refuzed"
                 ? "#de0d0d"
                 : "",
+            display: "flex",
+            width: "120px",
+            justifyContent: "center",
           }}
         >
           {status}

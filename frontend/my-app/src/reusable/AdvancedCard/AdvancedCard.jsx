@@ -4,30 +4,65 @@ import "./AdvancedCard.scss";
 import { Avatar, Tooltip } from "antd";
 import FadeLoader from "react-spinners/FadeLoader";
 
-const AdvancedCard = ({ spanText, welcomeText, avatar, number, loading }) => {
+const AdvancedCard = ({
+  // spanText, welcomeText, avatar, number, loading
+  welcomeText,
+  tooltip,
+  totalEarnings,
+  chargeOfDelivry,
+  loading,
+  avatar,
+}) => {
   const { currentUserLoggedIn } = useContext(AppContext);
-  const { preferences } = useContext(AppContext);
-  const lengthOfShipments = preferences.filter(
-    ({ status }) => status === "Deliverd"
-  ).length;
+
+  const currentDate = new Date();
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  };
+
+  const currentDateString = currentDate.toLocaleString("en-US", options);
+
+  const totalSum = totalEarnings
+    .filter(({ status, updatedAt }) => {
+      const updatedDate = updatedAt.split(",")[0];
+      const currentDatePart = currentDateString.split(",")[0];
+
+      return status === "Deliverd" && updatedDate === currentDatePart;
+    })
+    .reduce((sum, item) => sum + Number(item.reference), 0);
+
+  const totalChargeForDel = chargeOfDelivry.filter(({ updatedAt, status }) => {
+    const updatedDate = updatedAt.split(",")[0];
+    const currentDatePart = currentDateString.split(",")[0];
+    return status === "Deliverd" && updatedDate === currentDatePart;
+  }).length;
+
   return (
     <>
       <div className="advancedCardWrapper">
         <div className="advancedCardElements">
           <div style={{ display: "grid" }}>
             <span style={{ fontWeight: "600", fontSize: "20px" }}>
-              Hello, {currentUserLoggedIn.fullName}!
+              {welcomeText
+                ? welcomeText
+                : `Hello,${currentUserLoggedIn.fullName}!`}
             </span>
             <span style={{ fontSize: "13px", fontWeight: "400" }}>
               Today Earnings
             </span>
           </div>
           <div>
-            <Tooltip title={currentUserLoggedIn.fullName}>
+            <Tooltip title={tooltip ? tooltip : currentUserLoggedIn.fullName}>
               <Avatar
                 size={"large"}
                 shape="square"
-                children={currentUserLoggedIn.fullName[0]}
+                children={avatar ? avatar : currentUserLoggedIn.fullName[0]}
               />
             </Tooltip>
           </div>
@@ -42,7 +77,7 @@ const AdvancedCard = ({ spanText, welcomeText, avatar, number, loading }) => {
           >
             <span>Total earnings</span>
             <span style={{ fontSize: "25px", fontWeight: "500" }}>
-              {number}.00$
+              {totalSum}.00$
             </span>
           </div>
           <div
@@ -61,10 +96,10 @@ const AdvancedCard = ({ spanText, welcomeText, avatar, number, loading }) => {
                   fontWeight: "500",
                 }}
               >
-                {lengthOfShipments * 2}
+                {totalChargeForDel * 2}
                 .00$
               </span>{" "}
-              <span>for {lengthOfShipments} shipments deliverd</span>
+              <span>for {totalChargeForDel} shipments deliverd</span>
             </div>
           </div>
           <div
@@ -79,7 +114,7 @@ const AdvancedCard = ({ spanText, welcomeText, avatar, number, loading }) => {
               {loading ? (
                 <FadeLoader color="#000" />
               ) : (
-                `${number - lengthOfShipments * 2}.00$`
+                `${totalSum - totalChargeForDel * 2}.00$`
               )}
             </span>
           </div>

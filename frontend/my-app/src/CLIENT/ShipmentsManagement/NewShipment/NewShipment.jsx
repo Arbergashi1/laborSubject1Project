@@ -67,6 +67,7 @@ const NewShipment = () => {
         field: "doYouLetOpen",
         type: "select",
         options: [
+          { field: "selectOption", label: "Select Option" },
           { field: "yes", label: "Yes" },
           { field: "no", label: "No" },
         ],

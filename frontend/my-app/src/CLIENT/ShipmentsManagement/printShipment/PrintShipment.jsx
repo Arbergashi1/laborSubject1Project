@@ -1,11 +1,24 @@
 import "./PrintShipment.scss";
 import Logo from "../../../sidebar/utils/logoOfLab.png";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AppContext } from "../../../context/appcontext";
+import MondayButton from "../../../reusable/MondayButton/MondayButton";
 
 const PrintShipment = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { record } = location.state;
+  const { currentUserLoggedIn } = useContext(AppContext);
+  const handlePrint = () => {
+    setTimeout(() => {
+      window.print();
+    }, 500);
+  };
 
+  const goBack = () => {
+    navigate("/");
+  };
   return (
     <>
       <div className="print-wrapper">
@@ -20,7 +33,7 @@ const PrintShipment = () => {
                   <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
                   <td
                     style={{
-                      display: "flex",
+                      display: "grid",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
@@ -28,7 +41,7 @@ const PrintShipment = () => {
                     <img
                       src={"https://img.icons8.com/ios/100/barcode.png"}
                       width={250}
-                    />
+                    />{" "}
                     #{record.shipmentId}
                   </td>
                 </tr>
@@ -43,7 +56,9 @@ const PrintShipment = () => {
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
                         <div className="sender_row_title">pickup at</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn.firmName}
+                        </div>
                       </td>
                     </tr>
                     <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
@@ -51,15 +66,19 @@ const PrintShipment = () => {
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
                         <div className="sender_row_title">Address</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn?.address}
+                        </div>
                       </td>
                     </tr>
                     <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
                       <td
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
-                        <div className="sender_row_title">City</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_title">State</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn?.state}
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -164,7 +183,7 @@ const PrintShipment = () => {
                   <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
                   <td
                     style={{
-                      display: "flex",
+                      display: "grid",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
@@ -172,7 +191,7 @@ const PrintShipment = () => {
                     <img
                       src={"https://img.icons8.com/ios/100/barcode.png"}
                       width={250}
-                    />
+                    />{" "}
                     #{record.shipmentId}
                   </td>
                 </tr>
@@ -187,7 +206,9 @@ const PrintShipment = () => {
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
                         <div className="sender_row_title">pickup at</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn.firmName}
+                        </div>
                       </td>
                     </tr>
                     <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
@@ -195,15 +216,19 @@ const PrintShipment = () => {
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
                         <div className="sender_row_title">Address</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn?.address}
+                        </div>
                       </td>
                     </tr>
                     <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
                       <td
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
-                        <div className="sender_row_title">City</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_title">State</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn?.state}
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -308,7 +333,7 @@ const PrintShipment = () => {
                   <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
                   <td
                     style={{
-                      display: "flex",
+                      display: "grid",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
@@ -316,7 +341,7 @@ const PrintShipment = () => {
                     <img
                       src={"https://img.icons8.com/ios/100/barcode.png"}
                       width={250}
-                    />
+                    />{" "}
                     #{record.shipmentId}
                   </td>
                 </tr>
@@ -331,7 +356,9 @@ const PrintShipment = () => {
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
                         <div className="sender_row_title">pickup at</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn.firmName}
+                        </div>
                       </td>
                     </tr>
                     <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
@@ -339,15 +366,19 @@ const PrintShipment = () => {
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
                         <div className="sender_row_title">Address</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn?.address}
+                        </div>
                       </td>
                     </tr>
                     <tr style={{ border: "solid 1px #ccc", height: "30px" }}>
                       <td
                         style={{ border: "solid 1px #000", paddingLeft: "5px" }}
                       >
-                        <div className="sender_row_title">City</div>
-                        <div className="sender_row_body">{record?.city}</div>
+                        <div className="sender_row_title">State</div>
+                        <div className="sender_row_body">
+                          {currentUserLoggedIn?.state}
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -445,7 +476,14 @@ const PrintShipment = () => {
           justifyContent: "space-between",
           padding: "20px",
         }}
-      ></div>
+      >
+        <MondayButton className="Yellow" onClick={goBack}>
+          GO BACK
+        </MondayButton>
+        <MondayButton className="Blue" onClick={handlePrint}>
+          PRINT
+        </MondayButton>
+      </div>
     </>
   );
 };

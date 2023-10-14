@@ -71,9 +71,6 @@ const Form = ({ inputStructure, onChange, clickEvent }) => {
               >
                 {el !== "Sender Info" && (
                   <>
-                    <MondayButton className="Green" onClick={clickEvent}>
-                      Add Shipment
-                    </MondayButton>
                     <MondayButton
                       className="Yellow"
                       onClick={() => {
@@ -81,6 +78,9 @@ const Form = ({ inputStructure, onChange, clickEvent }) => {
                       }}
                     >
                       Go Back
+                    </MondayButton>
+                    <MondayButton className="Green" onClick={clickEvent}>
+                      Add Shipment
                     </MondayButton>
                   </>
                 )}

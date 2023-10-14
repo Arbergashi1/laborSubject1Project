@@ -31,7 +31,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar" style={{ position: "fixed", left: 0 }}>
       <div className="top">
-        <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+        <Link style={{ textDecoration: "none", color: "white" }}>
           <img src={Logo} alt="Logo" className="logo-head" />
         </Link>
       </div>
@@ -126,6 +126,32 @@ const Sidebar = () => {
             })}
             <p className="title">Users List</p>
             {administrateSideBarEl.slice(2, 4).map((el) => {
+              return (
+                <>
+                  <Link
+                    key={el.label}
+                    to={el.path}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                    }}
+                  >
+                    <li className={isActive(el.path) ? "active" : ""}>
+                      {el.icon}
+                      <span
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        {el.label}
+                      </span>
+                    </li>
+                  </Link>
+                </>
+              );
+            })}
+            <p className="title">Insights</p>
+            {administrateSideBarEl.slice(4).map((el) => {
               return (
                 <>
                   <Link

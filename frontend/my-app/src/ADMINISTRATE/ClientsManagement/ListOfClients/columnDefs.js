@@ -1,25 +1,33 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, Tooltip, message, notification } from "antd";
+import { Button, Popover, Tooltip, message, notification } from "antd";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import axios from "axios";
 
 export const columnDefs = ({
   clinetsList,
   setClinetsList,
-  idToEdit,
   setIdToEdit,
+  viewHandler,
 }) => [
   {
     title: "Client ID",
     dataIndex: "clientId",
     key: "clientId",
     align: "center",
-    render: (text) => {
-      const substringedId = text.substring(0, 8);
+    render: (_, record) => {
+      const substringedId = record.clientId.substring(0, 8);
       return (
         <div>
-          <Tooltip title={text}>{substringedId}..</Tooltip>.
+          <Popover title={record.clientId}>
+            <span
+              style={{ color: "blue", cursor: "pointer" }}
+              onClick={() => viewHandler(record)}
+            >
+              {substringedId}...
+            </span>
+          </Popover>
+          .
         </div>
       );
     },
@@ -104,27 +112,6 @@ export const columnDefs = ({
     key: "clientId",
     align: "center",
     render: (_, record) => {
-      const showDetailsNotification = (id) => {
-        notification.open({
-          message: "Client Details",
-          duration: 30,
-          placement: "bottomRight",
-          description: [
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                background: "lightgray",
-                padding: "10px",
-                borderRadius: "10px",
-              }}
-            >
-              <div>Created At</div>
-              <div>mm/yy/dd</div>
-            </div>,
-          ],
-        });
-      };
       const handleIdToEdit = (id) => {
         setIdToEdit(id);
       };
@@ -170,7 +157,7 @@ export const columnDefs = ({
               <Tooltip title="View Details">
                 <RemoveRedEyeIcon
                   color="secondary"
-                  onClick={() => showDetailsNotification(record.clientId)}
+                  onClick={() => viewHandler(record)}
                 />
               </Tooltip>
             </a>

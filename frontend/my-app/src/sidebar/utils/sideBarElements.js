@@ -8,6 +8,7 @@ import InsightsIcon from "@mui/icons-material/Insights";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GroupIcon from "@mui/icons-material/Group";
 import BadgeIcon from "@mui/icons-material/Badge";
+import NoCrashIcon from "@mui/icons-material/NoCrash";
 
 export const sideBarElements = [
   {
@@ -45,14 +46,6 @@ export const sideBarElements = [
     icon: <BorderColorIcon />,
     path: "/editProfile",
   },
-  // {
-  //   label: "Change Password",
-  //   icon: <KeyIcon />,
-  // },
-  // {
-  //   label: "Logout",
-  //   icon: <ExitToAppIcon />,
-  // },
   {
     label: "Payments Received",
     icon: <PaymentsIcon />,
@@ -79,5 +72,15 @@ export const administrateSideBarEl = [
     label: "Employee's List",
     icon: <BadgeIcon />,
     path: "/employeeList",
+  },
+  {
+    label: "New Vehicle",
+    icon: <NoCrashIcon />,
+    path: "/newVehicle",
+  },
+  {
+    label: "Vehicle List",
+    icon: <LocalShippingIcon />,
+    path: "/vehicleList",
   },
 ];

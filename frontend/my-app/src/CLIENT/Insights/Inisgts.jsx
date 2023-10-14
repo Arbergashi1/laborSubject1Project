@@ -2,15 +2,13 @@ import { useContext } from "react";
 import BasePage from "../../BasePage/BasePage";
 import { AppContext } from "../../context/appcontext";
 import Card from "../../reusable/Card/Card";
-import { Progress } from "antd";
 import AdvancedCard from "../../reusable/AdvancedCard/AdvancedCard";
 
 const Inisgts = () => {
   const { preferences } = useContext(AppContext);
-  const totalSum = preferences
-    .filter(({ status }) => status === "Deliverd")
-    .reduce((sum, item) => sum + Number(item.reference), 0);
-  console.log({ totalSum });
+  const chargeOfDelivry = preferences.filter(
+    ({ status }) => status === "Deliverd"
+  );
 
   return (
     <BasePage preNavName={"Insights"}>
@@ -64,13 +62,12 @@ const Inisgts = () => {
           }}
         >
           <h3>Today Earnings</h3>
-          {/* <h3>Not paid Earnings</h3> */}
-          {/* <h3>All time Earnings</h3> */}
         </div>
         <div style={{ display: "flex", gap: "30px" }}>
-          <AdvancedCard number={totalSum} />
-          {/* <AdvancedCard loading={true} /> */}
-          {/* <AdvancedCard loading={true} /> */}
+          <AdvancedCard
+            totalEarnings={preferences}
+            chargeOfDelivry={chargeOfDelivry}
+          />
         </div>
       </div>
     </BasePage>
