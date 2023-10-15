@@ -3,7 +3,13 @@ import "./Form.scss";
 import MondayButton from "../MondayButton/MondayButton";
 import { useNavigate } from "react-router-dom";
 
-const Form = ({ inputStructure, onChange, clickEvent }) => {
+const Form = ({
+  inputStructure,
+  onChange,
+  clickEvent,
+  goBackButtonClick,
+  createButtonText,
+}) => {
   const navigate = useNavigate();
 
   const headingOfInpput = Object.keys(inputStructure);
@@ -73,14 +79,18 @@ const Form = ({ inputStructure, onChange, clickEvent }) => {
                   <>
                     <MondayButton
                       className="Yellow"
-                      onClick={() => {
-                        navigate("/");
-                      }}
+                      onClick={
+                        goBackButtonClick
+                          ? goBackButtonClick
+                          : () => {
+                              navigate("/");
+                            }
+                      }
                     >
                       Go Back
                     </MondayButton>
                     <MondayButton className="Green" onClick={clickEvent}>
-                      Add Shipment
+                      {createButtonText ? createButtonText : "Add Shipment"}
                     </MondayButton>
                   </>
                 )}

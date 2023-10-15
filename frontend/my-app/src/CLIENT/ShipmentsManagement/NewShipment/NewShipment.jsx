@@ -116,7 +116,6 @@ const NewShipment = () => {
       <Form
         inputStructure={spanTitleLeftSide}
         onChange={handleInputChange}
-        bodyOfObject={newShipmentObject}
         clickEvent={handleAddNewShipment}
       />
     </BasePage>

@@ -15,6 +15,8 @@ const AppProvider = ({ children }) => {
   const [currentUserLoggedIn, setCurrentUserLoggedIn] = useState(null);
   // 4
   const [shipmentsList, setShipmentsList] = useState([]);
+  //
+  const [vehicleList, setVehicleList] = useState([]);
 
   // 4
   const preferences =
@@ -80,10 +82,25 @@ const AppProvider = ({ children }) => {
         console.log("Error occurred while fetching registrations:", error);
       }
     }
+    async function fetchVehicles() {
+      try {
+        const vehivleListApiUrl =
+          "https://localhost:44312/api/VehicleManagement/GetListOfVehicles";
+
+        const response = await axios.get(vehivleListApiUrl);
+        const sortedData = response.data.listOfVehicles.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setVehicleList(sortedData);
+      } catch (error) {
+        console.log("Error occurred while fetching registrations:", error);
+      }
+    }
     fetchClientsList();
     fetchEmployeesList();
     fetchCurrentUser();
     fetchShipments();
+    fetchVehicles();
   }, []);
 
   useEffect(() => {
@@ -119,6 +136,8 @@ const AppProvider = ({ children }) => {
     shipmentsList,
     setShipmentsList,
     preferences,
+    vehicleList,
+    setVehicleList,
   };
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 };

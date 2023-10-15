@@ -150,7 +150,7 @@ const Sidebar = () => {
                 </>
               );
             })}
-            <p className="title">Insights</p>
+            <p className="title">Vehicle Management</p>
             {administrateSideBarEl.slice(4).map((el) => {
               return (
                 <>

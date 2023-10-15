@@ -16,6 +16,17 @@ const Inisgts = () => {
         <div
           style={{
             display: "flex",
+            justifyContent: "space-between",
+            padding: "0 20px 0",
+            borderRadius: "20px",
+            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          <h3>Today Earnings</h3>
+        </div>
+        <div
+          style={{
+            display: "flex",
             gap: "30px",
             padding: "10px",
             borderRadius: "20px",
@@ -52,18 +63,8 @@ const Inisgts = () => {
             background={"#de0d0d"}
           />
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            padding: "0 20px 0",
-            borderRadius: "20px",
-            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <h3>Today Earnings</h3>
-        </div>
-        <div style={{ display: "flex", gap: "30px" }}>
+
+        <div style={{ width: "50%" }}>
           <AdvancedCard
             totalEarnings={preferences}
             chargeOfDelivry={chargeOfDelivry}

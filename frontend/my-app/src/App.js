@@ -13,6 +13,8 @@ import { message } from "antd";
 import Inisgts from "./CLIENT/Insights/Inisgts";
 import PrintShipment from "./CLIENT/ShipmentsManagement/printShipment/PrintShipment";
 import ClientDetails from "./ADMINISTRATE/ClientsManagement/ClientDetails/ClientDetails";
+import VehicleList from "./ADMINISTRATE/VehicleManagement/VehicleList/VehicleList";
+import NewVehicle from "./ADMINISTRATE/VehicleManagement/NewVehicle/NewVehicle";
 
 function App() {
   const { currentUserLoggedIn } = useContext(AppContext);
@@ -42,6 +44,8 @@ function App() {
               <Route path="/clientsList" element={<ClientsList />} />
               <Route path="/employeeList" element={<EmployeeList />} />
               <Route path="/clientDetails/:id" element={<ClientDetails />} />
+              <Route path="/newVehicle" element={<NewVehicle />} />
+              <Route path="/vehicleList" element={<VehicleList />} />
             </>
           ) : (
             <></>

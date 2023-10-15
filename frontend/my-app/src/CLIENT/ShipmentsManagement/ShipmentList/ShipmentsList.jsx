@@ -19,8 +19,6 @@ const ShipmentsList = () => {
     useContext(AppContext);
   const [idToEdit, setIdToEdit] = useState(false);
   const [editedData, setEditedData] = useState({});
-  console.log({ shipmentsList });
-  console.log({ preferences });
 
   const editHanlder = (record) => {
     setIdToEdit(true);
@@ -32,7 +30,6 @@ const ShipmentsList = () => {
       ...editedData,
       updatedAt: UseDateReader(Date.now()),
     };
-    console.log({ editObject });
 
     delete editObject.notes;
     delete editObject.createdAt;
@@ -47,7 +44,7 @@ const ShipmentsList = () => {
         setShipmentsList((prev) =>
           prev.map((shipment) =>
             shipment.shipmentId === editedData.shipmentId
-              ? { ...shipment, ...editedData }
+              ? { ...shipment, ...editObject }
               : shipment
           )
         );
