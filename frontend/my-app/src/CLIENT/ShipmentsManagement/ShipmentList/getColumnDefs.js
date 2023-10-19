@@ -6,7 +6,12 @@ import PrintIcon from "@mui/icons-material/Print";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import axios from "axios";
 
-const getColumnDefs = ({ setShipmentsList, editHanlder, printHandler }) => [
+const getColumnDefs = ({
+  setShipmentsList,
+  editHanlder,
+  printHandler,
+  saveLogs,
+}) => [
   {
     title: "Created at",
     dataIndex: "createdAt",
@@ -109,6 +114,11 @@ const getColumnDefs = ({ setShipmentsList, editHanlder, printHandler }) => [
             setShipmentsList((prev) =>
               prev.filter((el) => el.shipmentId !== id)
             );
+            saveLogs({
+              actionType: "Delete",
+              previousData: record.shipmentId,
+              updatedData: "Does not exists",
+            });
           } else {
             message.error(res.data.statusMessage);
           }

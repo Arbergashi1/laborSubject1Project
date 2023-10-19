@@ -52,6 +52,7 @@ const VehicleList = () => {
             padding: "10px",
             borderRadius: "20px",
             boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+            backgroundColor: "white",
           }}
         >
           <Card

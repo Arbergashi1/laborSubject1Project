@@ -3,8 +3,10 @@ import BasePage from "../../../BasePage/BasePage";
 import "./ClientDetails.scss";
 import AdvancedCard from "../../../reusable/AdvancedCard/AdvancedCard";
 import { AppContext } from "../../../context/appcontext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Card from "../../../reusable/Card/Card";
+import { Switch } from "antd";
+import { H1 } from "../../../reusable/hTags/HTags";
 
 const ClientDetails = () => {
   const location = useLocation();
@@ -20,10 +22,32 @@ const ClientDetails = () => {
   const shipmentFilteredByUser = shipmentsFilterByStatus.filter(
     ({ userId }) => userId === record.clientId
   );
-  console.log();
+
+  const [schitchPeriod, setSchitchPeriod] = useState(false);
 
   return (
     <BasePage preNavName={"Client Details"}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "0 20px 0",
+          borderRadius: "20px",
+          boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+          marginBottom: "15px",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <H1>{schitchPeriod ? "All Time Stats" : "Today Stats"}</H1>
+          <span>
+            <Switch
+              onClick={() => setSchitchPeriod(!schitchPeriod)}
+              unCheckedChildren="Click to change cards to all time stats"
+              checkedChildren="Click to change cards to Today stats"
+            />
+          </span>
+        </div>
+      </div>
       <div
         style={{
           display: "flex",
@@ -36,42 +60,38 @@ const ClientDetails = () => {
         <Card
           background={"#004cff"}
           string={"Awaiting Pickup"}
-          number={
-            shipmentsList.filter(
-              ({ status, userId }) =>
-                status === "Awaiting Pickup" && userId === record.clientId
-            ).length
-          }
+          number={shipmentsList.filter(
+            ({ status, userId }) =>
+              status === "Awaiting Pickup" && userId === record.clientId
+          )}
+          timeFiltering={schitchPeriod}
         />
         <Card
           background={"#efe770"}
           string={"In Delivry"}
-          number={
-            shipmentsList.filter(
-              ({ status, userId }) =>
-                status === "In Delivry" && userId === record.clientId
-            ).length
-          }
+          number={shipmentsList.filter(
+            ({ status, userId }) =>
+              status === "In Delivry" && userId === record.clientId
+          )}
+          timeFiltering={schitchPeriod}
         />
         <Card
           background={"#0dff00"}
           string={"Deliverd"}
-          number={
-            shipmentsList.filter(
-              ({ status, userId }) =>
-                status === "Deliverd" && userId === record.clientId
-            ).length
-          }
+          number={shipmentsList.filter(
+            ({ status, userId }) =>
+              status === "Deliverd" && userId === record.clientId
+          )}
+          timeFiltering={schitchPeriod}
         />
         <Card
           background={"#de0d0d"}
           string={"Refuzed"}
-          number={
-            shipmentsList.filter(
-              ({ status, userId }) =>
-                status === "Refuzed" && userId === record.clientId
-            ).length
-          }
+          number={shipmentsList.filter(
+            ({ status, userId }) =>
+              status === "Refuzed" && userId === record.clientId
+          )}
+          timeFiltering={schitchPeriod}
         />
       </div>
       <div
@@ -83,7 +103,7 @@ const ClientDetails = () => {
       >
         <div style={{ width: "100%" }}>
           <span>
-            <h3>Details for {record.fullName}</h3>
+            <H1>Details for {record.fullName}</H1>
           </span>
           <div className="clientDetailslWrapper">
             {Object.keys(record).map((detail) => {
@@ -99,7 +119,7 @@ const ClientDetails = () => {
         </div>
         <div style={{ width: "100%" }}>
           <span>
-            <h3>Insights for {record.fullName}</h3>
+            <H1>TODAY Insights for {record.fullName}</H1>
           </span>
           <AdvancedCard
             welcomeText={`You are watching details for, ${record.fullName}!`}
@@ -107,6 +127,20 @@ const ClientDetails = () => {
             avatar={record.fullName[0]}
             chargeOfDelivry={shipmentFilteredByUser}
             totalEarnings={shipmentFilteredByUser}
+            spanText={"Today Earnings"}
+          />
+        </div>
+        <div style={{ width: "100%" }}>
+          <span>
+            <H1>ALL TIME Insights for {record.fullName}</H1>
+          </span>
+          <AdvancedCard
+            welcomeText={`You are watching details for, ${record.fullName}!`}
+            tooltip={record.fullName}
+            avatar={record.fullName[0]}
+            chargeOfDelivry={shipmentFilteredByUser}
+            totalEarnings={shipmentFilteredByUser}
+            spanText={"All time earnings"}
           />
         </div>
       </div>

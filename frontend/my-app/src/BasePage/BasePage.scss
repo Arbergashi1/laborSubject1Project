@@ -6,9 +6,9 @@
     margin-left: 205px;
     .basePageTabs {
       background-color: rgb(255, 255, 255);
-      padding: 20px 0 20px;
+      padding: 40px 0px;
       gap: 20px;
-      height: 4vh;
+      height: 5vh;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15),
         0 6px 20px 0 rgba(0, 0, 0, 0.15);
       display: flex;
@@ -16,6 +16,7 @@
       .basePageTab {
         border-right: 1px solid rgba(207, 207, 207, 0.529);
         padding: 19px;
+        font-size: 30px;
       }
     }
 

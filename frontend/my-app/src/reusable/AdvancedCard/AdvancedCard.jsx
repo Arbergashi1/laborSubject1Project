@@ -5,13 +5,14 @@ import { Avatar, Tooltip } from "antd";
 import FadeLoader from "react-spinners/FadeLoader";
 
 const AdvancedCard = ({
-  // spanText, welcomeText, avatar, number, loading
+  spanText,
   welcomeText,
   tooltip,
   totalEarnings,
   chargeOfDelivry,
   loading,
   avatar,
+  background,
 }) => {
   const { currentUserLoggedIn } = useContext(AppContext);
 
@@ -28,24 +29,36 @@ const AdvancedCard = ({
 
   const currentDateString = currentDate.toLocaleString("en-US", options);
 
-  const totalSum = totalEarnings
-    .filter(({ status, updatedAt }) => {
-      const updatedDate = updatedAt.split(",")[0];
-      const currentDatePart = currentDateString.split(",")[0];
+  const totalSum =
+    spanText === "All time earnings"
+      ? totalEarnings
+          .filter(({ status }) => status === "Deliverd")
+          .reduce((sum, item) => sum + Number(item.reference), 0)
+      : spanText === "Today Earnings"
+      ? totalEarnings
+          .filter(({ status, updatedAt }) => {
+            const updatedDate = updatedAt.split(",")[0];
+            const currentDatePart = currentDateString.split(",")[0];
 
-      return status === "Deliverd" && updatedDate === currentDatePart;
-    })
-    .reduce((sum, item) => sum + Number(item.reference), 0);
+            return status === "Deliverd" && updatedDate === currentDatePart;
+          })
+          .reduce((sum, item) => sum + Number(item.reference), 0)
+      : "";
 
-  const totalChargeForDel = chargeOfDelivry.filter(({ updatedAt, status }) => {
-    const updatedDate = updatedAt.split(",")[0];
-    const currentDatePart = currentDateString.split(",")[0];
-    return status === "Deliverd" && updatedDate === currentDatePart;
-  }).length;
+  const totalChargeForDel =
+    spanText === "All time earnings"
+      ? chargeOfDelivry.filter(({ status }) => status === "Deliverd").length
+      : spanText === "Today Earnings"
+      ? chargeOfDelivry.filter(({ updatedAt, status }) => {
+          const updatedDate = updatedAt.split(",")[0];
+          const currentDatePart = currentDateString.split(",")[0];
+          return status === "Deliverd" && updatedDate === currentDatePart;
+        }).length
+      : "";
 
   return (
     <>
-      <div className="advancedCardWrapper">
+      <div className="advancedCardWrapper" style={{ background: background }}>
         <div className="advancedCardElements">
           <div style={{ display: "grid" }}>
             <span style={{ fontWeight: "600", fontSize: "20px" }}>
@@ -54,7 +67,7 @@ const AdvancedCard = ({
                 : `Hello,${currentUserLoggedIn.fullName}!`}
             </span>
             <span style={{ fontSize: "13px", fontWeight: "400" }}>
-              Today Earnings
+              {spanText ? spanText : "Today Earnings"}
             </span>
           </div>
           <div>

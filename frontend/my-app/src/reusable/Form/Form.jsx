@@ -2,6 +2,7 @@ import { Input } from "antd";
 import "./Form.scss";
 import MondayButton from "../MondayButton/MondayButton";
 import { useNavigate } from "react-router-dom";
+import { H1 } from "../hTags/HTags";
 
 const Form = ({
   inputStructure,
@@ -24,7 +25,7 @@ const Form = ({
         {headingOfInpput.map((el) => {
           return (
             <div>
-              <h2>{el}</h2>
+              <H1>{el}</H1>
               <div className="areaFormInput">
                 {Object.values(
                   inputStructure[el].map((field) => {

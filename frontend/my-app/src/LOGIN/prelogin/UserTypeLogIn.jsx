@@ -105,15 +105,7 @@ const UserTypeLogIn = ({}) => {
 
   return (
     <>
-      <div
-        style={{
-          padding: "20px 20px 96px 20px",
-          margin: "10px",
-          //   boxShadow: "inset 0 0 10px #a6a6a6",
-          boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
-          borderRadius: "20px",
-        }}
-      >
+      <div className="loginWrapper">
         <div>
           <Steps
             current={current}

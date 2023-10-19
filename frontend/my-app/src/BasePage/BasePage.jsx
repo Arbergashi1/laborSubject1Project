@@ -1,7 +1,7 @@
-import React from "react";
 import Sidebar from "../sidebar/Sidebar";
 import Navbar from "../navbar/Navbar";
 import "./BasePage.scss";
+import { H1 } from "../reusable/hTags/HTags";
 
 const BasePage = ({ preNavName, children }) => {
   return (
@@ -10,7 +10,7 @@ const BasePage = ({ preNavName, children }) => {
       <div className="basePageContainer">
         <Navbar />
         <div className="basePageTabs">
-          <h2 className="basePageTab">{preNavName}</h2>
+          <H1 className="basePageTab">{preNavName}</H1>
         </div>
         <div className="basePageContent">{children}</div>
       </div>

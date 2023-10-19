@@ -1,35 +1,50 @@
-.userTypeLoginWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 20px;
-  height: 66vh;
-  .text {
-    font-size: 16px;
-    font-weight: 600;
-  }
+.loginWrapper {
+  padding: 20px 20px 96px 20px;
+  margin: 10px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 20px;
 
-  .usersTypesDiv {
+  .userTypeLoginWrapper {
     display: flex;
-    gap: 10px;
-
-    .singleUserButton {
-      text-align: center;
-      background-color: #1677ff;
-      border: none;
-      padding: 15px;
-      width: 130px;
-      border-radius: 10px;
-      color: white;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    height: 66vh;
+    @media screen and (max-width: 767px) {
+      height: 50vh;
     }
 
-    .singleUserButton:hover {
-      background-color: #0d68e6;
+    .text {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .usersTypesDiv {
+      display: flex;
+      gap: 10px;
+
+      .singleUserButton {
+        text-align: center;
+        background-color: #1677ff;
+        border: none;
+        padding: 15px;
+        width: 130px;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        @media screen and (max-width: 767px) {
+          font-size: 12px;
+          width: 100px;
+        }
+      }
+
+      .singleUserButton:hover {
+        background-color: #0d68e6;
+      }
     }
   }
 }

@@ -8,11 +8,13 @@ import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
+import useSaveLogs from "../../../hooks/UseSaveLogs";
 
 const NewShipment = () => {
   const navigate = useNavigate();
   const { currentUserLoggedIn } = useContext(AppContext);
   const { setShipmentsList } = useContext(AppContext);
+  const saveLogs = useSaveLogs();
 
   const [newShipmentObject, setNewShipmentObject] = useState({});
 
@@ -105,6 +107,11 @@ const NewShipment = () => {
         message.success(res.data.statusMessage);
         setShipmentsList((prev) => [bodyObject, ...prev]);
         navigate("/");
+        saveLogs({
+          actionType: "Create",
+          previousData: "",
+          updatedData: bodyObject.shipmentId,
+        });
       } else {
         message.error(res.data.statusMessage);
       }

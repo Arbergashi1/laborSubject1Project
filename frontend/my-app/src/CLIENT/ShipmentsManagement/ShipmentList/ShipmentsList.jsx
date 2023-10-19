@@ -1,18 +1,19 @@
 import { Divider, Input, Modal, Select, Table, message } from "antd";
 import BasePage from "../../../BasePage/BasePage";
 import { AppContext } from "../../../context/appcontext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import getColumnDefs from "./getColumnDefs";
 import "./ShipmentsList.scss";
-import ScaleLoader from "react-spinners/ScaleLoader";
 import MondayButton from "../../../reusable/MondayButton/MondayButton";
 import "../../../ADMINISTRATE/ClientsManagement/ListOfClients/listOfClients.scss";
 import { UseDateReader } from "../../../hooks/UseDateReader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useSaveLogs from "../../../hooks/UseSaveLogs";
 
 const ShipmentsList = () => {
   const navigate = useNavigate();
+  const saveLogs = useSaveLogs();
 
   const { preferences } = useContext(AppContext);
   const { setShipmentsList, currentUserLoggedIn, shipmentsList } =
@@ -48,6 +49,11 @@ const ShipmentsList = () => {
               : shipment
           )
         );
+        saveLogs({
+          actionType: "Edit",
+          previousData: editedData.city,
+          updatedData: editObject.city,
+        });
         setIdToEdit(false);
       } else {
         message.error(res.data.statusMessage);
@@ -73,6 +79,7 @@ const ShipmentsList = () => {
   // useEffect(() => {
   //   goToTop();
   // }, []);
+
   return (
     <BasePage {...{ preNavName: "Shipments List" }}>
       <Table
@@ -85,11 +92,13 @@ const ShipmentsList = () => {
           setIdToEdit,
           editHanlder,
           printHandler,
+          saveLogs,
         })}
         dataSource={preferences}
         pagination={paginationOptions}
         className={`shipmentsListTable`}
       />
+
       {idToEdit && (
         <Modal
           centered

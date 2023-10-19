@@ -15,6 +15,7 @@ import PrintShipment from "./CLIENT/ShipmentsManagement/printShipment/PrintShipm
 import ClientDetails from "./ADMINISTRATE/ClientsManagement/ClientDetails/ClientDetails";
 import VehicleList from "./ADMINISTRATE/VehicleManagement/VehicleList/VehicleList";
 import NewVehicle from "./ADMINISTRATE/VehicleManagement/NewVehicle/NewVehicle";
+import LogsList from "./ADMINISTRATE/LogsList/LogsList";
 
 function App() {
   const { currentUserLoggedIn } = useContext(AppContext);
@@ -46,6 +47,7 @@ function App() {
               <Route path="/clientDetails/:id" element={<ClientDetails />} />
               <Route path="/newVehicle" element={<NewVehicle />} />
               <Route path="/vehicleList" element={<VehicleList />} />
+              <Route path="/logs" element={<LogsList />} />
             </>
           ) : (
             <></>

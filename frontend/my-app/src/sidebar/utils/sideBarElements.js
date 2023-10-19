@@ -83,4 +83,9 @@ export const administrateSideBarEl = [
     icon: <LocalShippingIcon />,
     path: "/vehicleList",
   },
+  {
+    label: "Logs List",
+    icon: <WorkHistoryIcon />,
+    path: "/logs",
+  },
 ];
