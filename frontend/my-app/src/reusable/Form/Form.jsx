@@ -71,7 +71,7 @@ const Form = ({
               </div>
               <div
                 style={{
-                  marginTop: "10px",
+                  margin: "10px 0 10px",
                   display: "flex",
                   justifyContent: "space-between",
                 }}

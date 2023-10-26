@@ -54,7 +54,7 @@ const EditClientModal = ({
           );
           setIdToEdit(false);
         } else {
-          message.success(res.data.statusMessage);
+          message.error(res.data.statusMessage);
         }
       })
       .catch((err) => console.log(err));

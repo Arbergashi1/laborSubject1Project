@@ -19,6 +19,8 @@ const AppProvider = ({ children }) => {
   const [vehicleList, setVehicleList] = useState([]);
   // 5
   const [editLogs, setEditLogs] = useState([]);
+  // 6
+  const [reportsList, setReportsList] = useState([]);
 
   // 4
   const preferences =
@@ -112,12 +114,27 @@ const AppProvider = ({ children }) => {
         console.log("Error occurred while fetching registrations:", error);
       }
     }
+    async function fetchReports() {
+      try {
+        const reportsListApi =
+          "https://localhost:44312/api/ReportsManagement/GetListOfReports";
+        const response = await axios.get(reportsListApi);
+        console.log({ response });
+        const sortedData = response.data.listOfReports.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setReportsList(sortedData);
+      } catch (error) {
+        console.log("Error occurred while fetching registrations:", error);
+      }
+    }
     fetchClientsList();
     fetchEmployeesList();
     fetchCurrentUser();
     fetchShipments();
     fetchVehicles();
     fetchLogs();
+    fetchReports();
   }, []);
 
   useEffect(() => {
@@ -157,6 +174,8 @@ const AppProvider = ({ children }) => {
     setVehicleList,
     editLogs,
     setEditLogs,
+    reportsList,
+    setReportsList,
   };
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 };

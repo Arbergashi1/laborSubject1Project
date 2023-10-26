@@ -16,6 +16,9 @@ import ClientDetails from "./ADMINISTRATE/ClientsManagement/ClientDetails/Client
 import VehicleList from "./ADMINISTRATE/VehicleManagement/VehicleList/VehicleList";
 import NewVehicle from "./ADMINISTRATE/VehicleManagement/NewVehicle/NewVehicle";
 import LogsList from "./ADMINISTRATE/LogsList/LogsList";
+import NewReport from "./CLIENT/ReportsManagement/NewReport";
+import ReportList from "./CLIENT/ReportsManagement/ReportList";
+import ReportsManagement from "./ADMINISTRATE/ReportsManagement/ReportsManagement";
 
 function App() {
   const { currentUserLoggedIn } = useContext(AppContext);
@@ -37,6 +40,8 @@ function App() {
                 path="/printShipment/:shipmentId"
                 element={<PrintShipment />}
               />
+              <Route path="/newReport" element={<NewReport />} />
+              <Route path="/reporstList" element={<ReportList />} />
             </>
           ) : currentUserLoggedIn?.employeeType === "Administrate" ? (
             <>
@@ -48,6 +53,10 @@ function App() {
               <Route path="/newVehicle" element={<NewVehicle />} />
               <Route path="/vehicleList" element={<VehicleList />} />
               <Route path="/logs" element={<LogsList />} />
+              <Route
+                path="/reportsManagement"
+                element={<ReportsManagement />}
+              />
             </>
           ) : (
             <></>

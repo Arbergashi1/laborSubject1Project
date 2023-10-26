@@ -4,7 +4,7 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import BadgeIcon from "@mui/icons-material/Badge";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { Checkbox, Divider, Steps, message } from "antd";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Login from "../Login";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,11 @@ const UserTypeLogIn = ({}) => {
   const onHandleLoginObjChange = (e) => {
     setLoginObject({ ...loginObject, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    document.title = "Login - KSD Delivry";
+  }, []);
+
   const onHandleLogin = () => {
     const userApiUrl = "https://localhost:44312/api/ClientLogin/ClientLogin";
     const employeeApiUrl =

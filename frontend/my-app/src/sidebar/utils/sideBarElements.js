@@ -9,6 +9,8 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import GroupIcon from "@mui/icons-material/Group";
 import BadgeIcon from "@mui/icons-material/Badge";
 import NoCrashIcon from "@mui/icons-material/NoCrash";
+import BugReportIcon from "@mui/icons-material/BugReport";
+import ReportIcon from "@mui/icons-material/Report";
 
 export const sideBarElements = [
   {
@@ -27,28 +29,14 @@ export const sideBarElements = [
     path: "/insights",
   },
   {
-    label: "Shipment Logs",
-    icon: <WorkHistoryIcon />,
-    path: "/shipmentLogs",
+    label: "New Report",
+    icon: <BugReportIcon />,
+    path: "/newReport",
   },
   {
-    label: "Shipment Notes",
-    icon: <TextSnippetIcon />,
-    path: "/shipmentNotes",
-  },
-  {
-    label: "Pickups",
-    icon: <LocalShippingIcon />,
-    path: "/pickups",
-  },
-  {
-    label: "Edit Profile",
-    icon: <BorderColorIcon />,
-    path: "/editProfile",
-  },
-  {
-    label: "Payments Received",
-    icon: <PaymentsIcon />,
+    label: "Reports List",
+    icon: <ReportIcon />,
+    path: "/reporstList",
   },
 ];
 
@@ -87,5 +75,10 @@ export const administrateSideBarEl = [
     label: "Logs List",
     icon: <WorkHistoryIcon />,
     path: "/logs",
+  },
+  {
+    label: "Reports List",
+    icon: <ReportIcon />,
+    path: "/reportsManagement",
   },
 ];

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../context/appcontext";
 import { Table } from "antd";
 import { columnDefs } from "./columnDefs";
@@ -24,6 +24,10 @@ const ClientsList = () => {
       },
     });
   };
+
+  useEffect(() => {
+    document.title = "Client List - KSD Delivry";
+  }, []);
 
   return (
     <BasePage preNavName={"Clients List"}>

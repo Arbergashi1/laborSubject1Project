@@ -8,31 +8,32 @@ import useSaveLogs from "../../../hooks/UseSaveLogs";
 import { Html5QrcodeScanner } from "html5-qrcode";
 
 const PrintShipment = () => {
-  const [scanResult, setScanResult] = useState("");
+  // const [scanResult, setScanResult] = useState("");
   const saveLogs = useSaveLogs();
   const location = useLocation();
   const navigate = useNavigate();
   const { record } = location.state;
   const { currentUserLoggedIn } = useContext(AppContext);
   console.log({ record });
-  useEffect(() => {
-    const scanner = new Html5QrcodeScanner("reader", {
-      qrbox: {
-        width: 250,
-        height: 250,
-      },
-      fps: 5,
-    });
 
-    function success(result) {
-      scanner.clear();
-      setScanResult(result);
-    }
-    function error(err) {
-      console.log({ err });
-    }
-    scanner.render(success, error);
-  }, []);
+  // useEffect(() => {
+  //   const scanner = new Html5QrcodeScanner("reader", {
+  //     qrbox: {
+  //       width: 250,
+  //       height: 250,
+  //     },
+  //     fps: 5,
+  //   });
+
+  //   function success(result) {
+  //     scanner.clear();
+  //     setScanResult(result);
+  //   }
+  //   function error(err) {
+  //     console.log({ err });
+  //   }
+  //   scanner.render(success, error);
+  // }, []);
 
   const handlePrint = () => {
     setTimeout(() => {
@@ -68,14 +69,14 @@ const PrintShipment = () => {
                       alignItems: "center",
                     }}
                   >
-                    {scanResult !== "" ? (
+                    {/* {scanResult !== "" ? (
                       <div>
                         Success{" "}
                         <a href={"http://" + scanResult}>{scanResult}</a>
                       </div>
                     ) : (
                       <div id="reader"></div>
-                    )}
+                    )} */}
                     <img
                       src={"https://img.icons8.com/ios/100/barcode.png"}
                       width={250}
