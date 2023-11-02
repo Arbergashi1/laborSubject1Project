@@ -65,7 +65,7 @@ const getColumnDefs = ({
       return (
         <span
           style={{
-            padding: "10px",
+            padding: "4px",
             borderRadius: "10px",
             fontWeight: "600",
             color: "white",
@@ -80,7 +80,7 @@ const getColumnDefs = ({
                 ? "#de0d0d"
                 : "",
             display: "flex",
-            width: "120px",
+            // width: "110%",
             justifyContent: "center",
           }}
         >
@@ -100,6 +100,34 @@ const getColumnDefs = ({
     dataIndex: "notes",
     key: "notes",
     align: "center",
+  },
+  {
+    title: "In Delivry With",
+    dataIndex: "inWith",
+    key: "inWith",
+    align: "center",
+    render: (_, record) => {
+      console.log({ record });
+      return (
+        <div className="grid">
+          <div className="flex text-xs gap-1">
+            {record.status === "Deliverd" || record.status === "Refuzed" ? (
+              <>Shipment updated by</>
+            ) : <>
+                {" "}
+                <span>In Delivry with</span>
+              </> ? (
+              record.status === "Awaiting Pickup"
+            ) : (
+              <></>
+            )}
+            <span className="font-medium text-violet-500">
+              {record.inWith || "-||-"}
+            </span>
+          </div>
+        </div>
+      );
+    },
   },
   {
     title: "Option",
@@ -126,19 +154,28 @@ const getColumnDefs = ({
       };
       return (
         <div style={{ display: "flex", gap: "10px" }}>
-          <a>
-            <Tooltip title="Delete">
-              <DeleteIcon
-                color="error"
-                onClick={() => handleDelete(record.shipmentId)}
-              />
-            </Tooltip>
-          </a>
-          <a>
-            <Tooltip title="Edit">
-              <EditIcon color="primary" onClick={() => editHanlder(record)} />
-            </Tooltip>
-          </a>
+          {record.status === "Awaiting Pickup" && (
+            <>
+              {" "}
+              <a>
+                <Tooltip title="Delete">
+                  <DeleteIcon
+                    color="error"
+                    onClick={() => handleDelete(record.shipmentId)}
+                  />
+                </Tooltip>
+              </a>
+              <a>
+                <Tooltip title="Edit">
+                  <EditIcon
+                    color="primary"
+                    onClick={() => editHanlder(record)}
+                  />
+                </Tooltip>
+              </a>
+            </>
+          )}
+
           <a>
             <Tooltip title="View Details">
               <RemoveRedEyeIcon color="secondary" />

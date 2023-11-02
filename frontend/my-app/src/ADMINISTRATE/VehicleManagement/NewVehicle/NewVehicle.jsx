@@ -7,10 +7,12 @@ import axios from "axios";
 import { message } from "antd";
 import { UseDateReader } from "../../../hooks/UseDateReader";
 import { AppContext } from "../../../context/appcontext";
+import { useDocumentTile } from "../../../hooks/useDocumentTile";
 
 const NewVehicle = () => {
   const [vehicleObject, setVehicleObject] = useState({});
   const { setVehicleList } = useContext(AppContext);
+  useDocumentTile({ title: "New Vehicle | ADMINISTRATE | KSD" });
 
   const navigate = useNavigate();
 

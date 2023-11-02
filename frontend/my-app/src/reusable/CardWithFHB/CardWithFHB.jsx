@@ -50,10 +50,8 @@ const CardWithFHB = ({ title, bgColor, body, footer, status }) => {
       </div>
       <div className="border-t-2">
         <div className="flex justify-between p-2 gap-2">
-          <MondayButton className="Red" style={{ width: "30%" }}>
-            Delete Report
-          </MondayButton>
-          <MondayButton className="Blue" disabled={true}>
+          <MondayButton className="mondayButtonRed">Delete Report</MondayButton>
+          <MondayButton className="mondayButtonBlue" disabled={true}>
             Open Deatils
           </MondayButton>
         </div>

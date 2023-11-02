@@ -1,6 +1,7 @@
 import "./Sidebar.scss";
 import {
   administrateSideBarEl,
+  employeeSideBarEl,
   sideBarElements,
 } from "./utils/sideBarElements";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -8,9 +9,11 @@ import Logo from "./utils/logoOfLab.png";
 import { AppContext } from "../context/appcontext";
 import { useContext } from "react";
 import MondayButton from "../reusable/MondayButton/MondayButton";
+import useSaveLogs from "../hooks/UseSaveLogs";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const saveLogs = useSaveLogs();
   const { currentUserLoggedIn, setCurrentUserLoggedIn } =
     useContext(AppContext);
   const location = useLocation();
@@ -23,6 +26,11 @@ const Sidebar = () => {
     navigate("/auth");
     sessionStorage.removeItem("clientLoggedInId");
     sessionStorage.removeItem("empAdmLoggedInId");
+    saveLogs({
+      actionType: "Logout",
+      previousData: "",
+      updatedData: currentUserLoggedIn?.email || "",
+    });
     if (currentUserLoggedIn !== null) {
       setCurrentUserLoggedIn(null);
     }
@@ -231,7 +239,33 @@ const Sidebar = () => {
               );
             })}
             <p className="title">Reports Management</p>
-            {administrateSideBarEl.slice(7).map((el) => {
+            {administrateSideBarEl.slice(7, 8).map((el) => {
+              return (
+                <>
+                  <Link
+                    key={el.label}
+                    to={el.path}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                    }}
+                  >
+                    <li className={isActive(el.path) ? "active" : ""}>
+                      {el.icon}
+                      <span
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        {el.label}
+                      </span>
+                    </li>
+                  </Link>
+                </>
+              );
+            })}
+            <p className="title">Shipments Management</p>
+            {administrateSideBarEl.slice(8).map((el) => {
               return (
                 <>
                   <Link
@@ -259,14 +293,45 @@ const Sidebar = () => {
           </ul>
         </div>
       )}
-      {currentUserLoggedIn?.userType === "Employee" && "h"}
+      {currentUserLoggedIn?.employeeType === "Employee" && (
+        <div className="center">
+          <ul>
+            <p className="title">Users Management</p>
+            {employeeSideBarEl.slice(0, 2).map((el) => {
+              return (
+                <>
+                  <Link
+                    key={el.label}
+                    to={el.path}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                    }}
+                  >
+                    <li className={isActive(el.path) ? "active" : ""}>
+                      {el.icon}
+                      <span
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        {el.label}
+                      </span>
+                    </li>
+                  </Link>
+                </>
+              );
+            })}
+          </ul>
+        </div>
+      )}
       <div className="center">
         <ul>
           <p className="title"></p>
           <MondayButton
-            style={{ width: "95%" }}
+            style={{ width: "95%", marginBottom: "20px" }}
             onClick={logoutHandler}
-            className="Red"
+            className="mondayButtonRed"
           >
             Logout
           </MondayButton>

@@ -15,9 +15,9 @@ const useSaveLogs = () => {
       previousData: givename.previousData,
       createdAt: UseDateReader(Date.now()),
       updatedData: givename.updatedData,
-      createByUser: currentUserLoggedIn.fullName,
+      createByUser: currentUserLoggedIn?.fullName || "",
       createByUserId:
-        currentUserLoggedIn?.employeeId || currentUserLoggedIn?.clientId,
+        currentUserLoggedIn?.employeeId || currentUserLoggedIn?.clientId || "",
     };
 
     const apiUrl = "https://localhost:44312/api/LogsManagement/CreateNewLog";

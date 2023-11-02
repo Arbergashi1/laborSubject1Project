@@ -15,10 +15,13 @@ const EditModal = ({
       onCancel={() => setIdToEdit(false)}
       footer={
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <MondayButton className="Red" onClick={() => setIdToEdit(false)}>
+          <MondayButton
+            className="mondayButtonRed"
+            onClick={() => setIdToEdit(false)}
+          >
             Cancel
           </MondayButton>
-          <MondayButton className="Green" onClick={handleEdit}>
+          <MondayButton className="mondayButtonGreen" onClick={handleEdit}>
             Edit
           </MondayButton>
         </div>

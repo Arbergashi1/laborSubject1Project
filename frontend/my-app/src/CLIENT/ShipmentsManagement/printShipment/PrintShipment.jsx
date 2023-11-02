@@ -1,39 +1,20 @@
 import "./PrintShipment.scss";
 import Logo from "../../../sidebar/utils/logoOfLab.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../../context/appcontext";
-import MondayButton from "../../../reusable/MondayButton/MondayButton";
 import useSaveLogs from "../../../hooks/UseSaveLogs";
-import { Html5QrcodeScanner } from "html5-qrcode";
+import { useDocumentTile } from "../../../hooks/useDocumentTile";
 
 const PrintShipment = () => {
-  // const [scanResult, setScanResult] = useState("");
+  useDocumentTile({ title: "Print Shipment | KSD" });
+
   const saveLogs = useSaveLogs();
   const location = useLocation();
   const navigate = useNavigate();
   const { record } = location.state;
   const { currentUserLoggedIn } = useContext(AppContext);
   console.log({ record });
-
-  // useEffect(() => {
-  //   const scanner = new Html5QrcodeScanner("reader", {
-  //     qrbox: {
-  //       width: 250,
-  //       height: 250,
-  //     },
-  //     fps: 5,
-  //   });
-
-  //   function success(result) {
-  //     scanner.clear();
-  //     setScanResult(result);
-  //   }
-  //   function error(err) {
-  //     console.log({ err });
-  //   }
-  //   scanner.render(success, error);
-  // }, []);
 
   const handlePrint = () => {
     setTimeout(() => {
@@ -62,25 +43,11 @@ const PrintShipment = () => {
                     <img src={Logo} height={50} />
                   </td>
                   <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
-                  <td
-                    style={{
-                      display: "grid",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    {/* {scanResult !== "" ? (
-                      <div>
-                        Success{" "}
-                        <a href={"http://" + scanResult}>{scanResult}</a>
-                      </div>
-                    ) : (
-                      <div id="reader"></div>
-                    )} */}
-                    <img
+                  <td style={{ textAlign: "center" }}>
+                    {/* <img
                       src={"https://img.icons8.com/ios/100/barcode.png"}
                       width={250}
-                    />{" "}
+                    />{" "} */}
                     #{record.shipmentId}
                   </td>
                 </tr>
@@ -220,17 +187,11 @@ const PrintShipment = () => {
                     <img src={Logo} height={50} />
                   </td>
                   <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
-                  <td
-                    style={{
-                      display: "grid",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
+                  <td style={{ textAlign: "center" }}>
+                    {/* <img
                       src={"https://img.icons8.com/ios/100/barcode.png"}
                       width={250}
-                    />{" "}
+                    />{" "} */}
                     #{record.shipmentId}
                   </td>
                 </tr>
@@ -370,17 +331,11 @@ const PrintShipment = () => {
                     <img src={Logo} height={50} />
                   </td>
                   <td style={{ textAlign: "center" }}>KSD-DELIVRY </td>
-                  <td
-                    style={{
-                      display: "grid",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
+                  <td style={{ textAlign: "center" }}>
+                    {/* <img
                       src={"https://img.icons8.com/ios/100/barcode.png"}
                       width={250}
-                    />{" "}
+                    />{" "} */}
                     #{record.shipmentId}
                   </td>
                 </tr>
@@ -512,16 +467,16 @@ const PrintShipment = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "space-around",
           padding: "20px",
         }}
       >
-        <MondayButton className="Yellow" onClick={goBack}>
+        <button className="mondayButtonYellow" onClick={goBack}>
           GO BACK
-        </MondayButton>
-        <MondayButton className="Blue" onClick={handlePrint}>
+        </button>
+        <button className="mondayButtonBlue" onClick={handlePrint}>
           PRINT
-        </MondayButton>
+        </button>
       </div>
     </>
   );

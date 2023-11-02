@@ -1,10 +1,13 @@
 import { Input } from "antd";
 import { Link } from "react-router-dom";
 import { H1 } from "../reusable/hTags/HTags";
+import logo from "../reusable/images/iphone-with-profile.jpg";
+import MondayButton from "../reusable/MondayButton/MondayButton";
 
 const Login = ({
   onHandleLoginObjChange,
   userTypeSelected,
+  loading,
   onHandleLogin,
   loginObject,
 }) => {
@@ -13,7 +16,7 @@ const Login = ({
       <div className="flex w-2/1">
         <img
           className="h-auto max-w-xs"
-          src="/images/iphone-with-profile.jpg"
+          src={logo}
           alt="iPhone with Instagram app"
         />
       </div>
@@ -52,15 +55,14 @@ const Login = ({
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
             />
           </div>
-          <button
-            style={{ width: "100%", backgroundColor: "#4299e1" }}
+          <MondayButton
+            className="mondayButtonBlue"
+            loading={loading}
             onClick={onHandleLogin}
-            disabled={loginObject === ""}
-            className={`bg-blue-medium text-white w-full rounded h-8 font-bold cursor-pointer
-          ${loginObject === "" && "opacity-50 cursor-not-allowed"}`}
+            disabled={loading || loginObject === ""}
           >
             Login
-          </button>
+          </MondayButton>
         </div>
         <div className="flex flex-col items-center bg-white p-2 border border-gray-primary mb-4 rounded">
           <h1 className="flex justify-center w-full">

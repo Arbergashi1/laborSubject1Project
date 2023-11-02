@@ -7,8 +7,11 @@ import Card from "../../../reusable/Card/Card";
 import EditModal from "./EditModal";
 import { UseDateReader } from "../../../hooks/UseDateReader";
 import axios from "axios";
+import { useDocumentTile } from "../../../hooks/useDocumentTile";
 
 const VehicleList = () => {
+  useDocumentTile({ title: "Vehicle List | ADMINISTRATE | KSD" });
+
   const { vehicleList, setVehicleList } = useContext(AppContext);
   const [idToEdit, setIdToEdit] = useState(false);
   const [editedData, setEditedData] = useState({});

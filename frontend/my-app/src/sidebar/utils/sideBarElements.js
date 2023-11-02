@@ -81,4 +81,22 @@ export const administrateSideBarEl = [
     icon: <ReportIcon />,
     path: "/reportsManagement",
   },
+  {
+    label: "Update Shipments",
+    icon: <BorderColorIcon />,
+    path: "/updateShipments",
+  },
+];
+
+export const employeeSideBarEl = [
+  {
+    label: "Shipments Lists",
+    icon: <DashboardIcon />,
+    path: "/shipmentsList",
+  },
+  {
+    label: "My Shipments",
+    icon: <TextSnippetIcon />,
+    path: "/myShipments",
+  },
 ];

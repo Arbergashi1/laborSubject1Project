@@ -5,11 +5,15 @@ import { Card as AntdCard, message } from "antd";
 import axios from "axios";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Card from "../../reusable/Card/Card";
+import { useDocumentTile } from "../../hooks/useDocumentTile";
 
 const ReportList = () => {
+  useDocumentTile({ title: "Reports | ADMINISTRATE | KSD" });
+
   const { reportsList, setReportsList } = useContext(AppContext);
   const [openedReportId, setOpenedReportId] = useState(null);
   console.log({ openedReportId });
+  const [loading, setLoading] = useState(false);
 
   const openResponse = (reportId) => {
     setOpenedReportId(reportId);
@@ -88,6 +92,7 @@ const ReportList = () => {
             });
 
             const handleDelete = (report) => {
+              setLoading(true);
               const apiUrl = `https://localhost:44312/api/ReportsManagement/DeleteReport/${report.reportId}`;
 
               axios.delete(apiUrl).then((res) => {
@@ -96,6 +101,7 @@ const ReportList = () => {
                   setReportsList((prev) =>
                     prev.filter((rep) => rep.reportId !== report.reportId)
                   );
+                  setLoading(false);
                 } else {
                   message.error(res.data.statusMessage);
                 }
@@ -132,6 +138,7 @@ const ReportList = () => {
                 )}
                 {openedReportId === null && (
                   <AntdCard
+                    loading={loading}
                     key={report.reportId}
                     title={
                       <div className="flex justify-between items-center">

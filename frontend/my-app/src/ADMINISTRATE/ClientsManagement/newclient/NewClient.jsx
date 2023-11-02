@@ -7,8 +7,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BasePage from "../../../BasePage/BasePage";
 import MondayButton from "../../../reusable/MondayButton/MondayButton";
+import { useDocumentTile } from "../../../hooks/useDocumentTile";
 
 const NewClient = () => {
+  useDocumentTile({ title: "New Client | ADMINISTRATE | KSD" });
+
   const { setClinetsList } = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -144,11 +147,7 @@ const NewClient = () => {
         </div>
 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <MondayButton
-            style={{ width: "50%", padding: "10px" }}
-            onClick={handleSubmit}
-            className="Green"
-          >
+          <MondayButton onClick={handleSubmit} className="mondayButtonGreen">
             submit
           </MondayButton>
         </div>

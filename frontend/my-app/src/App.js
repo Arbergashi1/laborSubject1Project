@@ -19,6 +19,8 @@ import LogsList from "./ADMINISTRATE/LogsList/LogsList";
 import NewReport from "./CLIENT/ReportsManagement/NewReport";
 import ReportList from "./CLIENT/ReportsManagement/ReportList";
 import ReportsManagement from "./ADMINISTRATE/ReportsManagement/ReportsManagement";
+import MyShipments from "./EMPLOYEE/MyShipments/MyShipments";
+import UpdateShipments from "./ADMINISTRATE/UpdateShipments/UpdateShipments";
 
 function App() {
   const { currentUserLoggedIn } = useContext(AppContext);
@@ -57,6 +59,12 @@ function App() {
                 path="/reportsManagement"
                 element={<ReportsManagement />}
               />
+              <Route path="/updateShipments" element={<UpdateShipments />} />
+            </>
+          ) : currentUserLoggedIn?.employeeType === "Employee" ? (
+            <>
+              {/* <Route path="/shipmentsList" element={<ShipmentsList />} /> */}
+              <Route path="/myShipments" element={<MyShipments />} />
             </>
           ) : (
             <></>

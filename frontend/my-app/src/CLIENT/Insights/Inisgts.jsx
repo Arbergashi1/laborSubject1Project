@@ -5,12 +5,16 @@ import Card from "../../reusable/Card/Card";
 import AdvancedCard from "../../reusable/AdvancedCard/AdvancedCard";
 import { Switch } from "antd";
 import { H1 } from "../../reusable/hTags/HTags";
+import { useDocumentTile } from "../../hooks/useDocumentTile";
 
 const Inisgts = () => {
+  useDocumentTile({ title: "Shipments Insights | KSD" });
+
   const { preferences } = useContext(AppContext);
   const chargeOfDelivry = preferences.filter(
     ({ status }) => status === "Deliverd"
   );
+  console.log({ preferences });
   const [schitchPeriod, setSchitchPeriod] = useState(false);
   console.log({ schitchPeriod });
 

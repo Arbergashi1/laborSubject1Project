@@ -9,11 +9,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
 import useSaveLogs from "../../../hooks/UseSaveLogs";
+import { kosovo_cities } from "../../../reusable/exportedListOfCities";
+import { useDocumentTile } from "../../../hooks/useDocumentTile";
 
 const NewShipment = () => {
+  useDocumentTile({ title: "Add New Shipment | KSD" });
+
   const navigate = useNavigate();
   const { currentUserLoggedIn } = useContext(AppContext);
   const { setShipmentsList } = useContext(AppContext);
+  const [loading, setLoading] = useState(false);
   const saveLogs = useSaveLogs();
 
   const [newShipmentObject, setNewShipmentObject] = useState({});
@@ -55,7 +60,13 @@ const NewShipment = () => {
           { field: "maqedonia", label: "Maqedonia" },
         ],
       },
-      { title: "City", placeholder: "City here..", field: "city" },
+      {
+        title: "City",
+        placeholder: "City here..",
+        field: "city",
+        type: "select",
+        options: kosovo_cities,
+      },
       { title: "Address", placeholder: "Address here...", field: "address" },
       { title: "Phone", placeholder: "Phone here...", field: "phone" },
       {
@@ -91,6 +102,7 @@ const NewShipment = () => {
   };
 
   const handleAddNewShipment = () => {
+    setLoading(true);
     const bodyObject = {
       ...newShipmentObject,
       shipmentId: uuidv4(),
@@ -99,11 +111,13 @@ const NewShipment = () => {
       userId: currentUserLoggedIn?.clientId,
       status: "Awaiting Pickup",
       notes: "",
+      inWith: "",
     };
     const apiUrl =
       "https://localhost:44312/api/ShipmentsManagement/CreateNewShipment";
     axios.post(apiUrl, bodyObject).then((res) => {
       if (res.data.statusCode === 200) {
+        setLoading(false);
         message.success(res.data.statusMessage);
         setShipmentsList((prev) => [bodyObject, ...prev]);
         navigate("/");
@@ -124,6 +138,7 @@ const NewShipment = () => {
         inputStructure={spanTitleLeftSide}
         onChange={handleInputChange}
         clickEvent={handleAddNewShipment}
+        loading={loading}
       />
     </BasePage>
   );

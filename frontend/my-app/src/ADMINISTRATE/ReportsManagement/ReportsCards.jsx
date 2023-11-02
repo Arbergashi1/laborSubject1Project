@@ -139,13 +139,10 @@ const ReportsCards = ({ report, index, setReportsList, reportsList }) => {
                   {trackStatusChanger ? (
                     <AddTaskIcon color="primary" />
                   ) : (
-                    <div className="flex justify-between">
-                      <button
+                    <div className="flex gap-10">
+                      <MondayButton
                         disabled={reportResponse === ""}
-                        className={`bg-blue-500 hover:bg-blue-550 text-white font-bold py-2 px-4 rounded-full ${
-                          reportResponse === "" &&
-                          "bg-gray-300 opacity-90  cursor-not-allowed"
-                        }`}
+                        className="mondayButtonBlue"
                         onClick={() => {
                           //   setTimeout(() => {
                           //     handlePopoverClose();
@@ -156,11 +153,10 @@ const ReportsCards = ({ report, index, setReportsList, reportsList }) => {
                         }}
                       >
                         Mark Reviewed
-                      </button>
+                      </MondayButton>
 
                       <MondayButton
-                        className="Red"
-                        style={{ width: "60px" }}
+                        className="mondayButtonRed"
                         onClick={handlePopoverClose}
                       >
                         Close
@@ -172,12 +168,9 @@ const ReportsCards = ({ report, index, setReportsList, reportsList }) => {
                 {finalResponse && (
                   <>
                     <hr />
-                    <div className="flex justify-between">
-                      <button
-                        className={`bg-green-500 hover:bg-blue-550 text-white font-bold py-2 px-4 rounded-full ${
-                          reportResponse === "" &&
-                          "bg-gray-300 opacity-90  cursor-not-allowed"
-                        }`}
+                    <div className="flex gap-10">
+                      <MondayButton
+                        className="mondayButtonGreen"
                         onClick={() => {
                           setTimeout(() => {
                             handlePopoverClose();
@@ -188,12 +181,9 @@ const ReportsCards = ({ report, index, setReportsList, reportsList }) => {
                         }}
                       >
                         Reviewed
-                      </button>
-                      <button
-                        className={`bg-red-500 hover:bg-red-550 text-white font-bold py-2 px-4 rounded-full ${
-                          reportResponse === "" &&
-                          "bg-gray-300 opacity-90  cursor-not-allowed"
-                        }`}
+                      </MondayButton>
+                      <MondayButton
+                        className="mondayButtonRed"
                         onClick={() => {
                           setTimeout(() => {
                             handlePopoverClose();
@@ -204,7 +194,7 @@ const ReportsCards = ({ report, index, setReportsList, reportsList }) => {
                         }}
                       >
                         Denied
-                      </button>
+                      </MondayButton>
                     </div>
                   </>
                 )}

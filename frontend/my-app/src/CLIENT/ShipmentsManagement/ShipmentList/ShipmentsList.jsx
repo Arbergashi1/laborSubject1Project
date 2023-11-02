@@ -10,8 +10,11 @@ import { UseDateReader } from "../../../hooks/UseDateReader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useSaveLogs from "../../../hooks/UseSaveLogs";
+import { useDocumentTile } from "../../../hooks/useDocumentTile";
 
 const ShipmentsList = () => {
+  useDocumentTile({ title: "Shipments | KSD" });
+
   const navigate = useNavigate();
   const saveLogs = useSaveLogs();
 
@@ -83,6 +86,7 @@ const ShipmentsList = () => {
   return (
     <BasePage {...{ preNavName: "Shipments List" }}>
       <Table
+        bordered
         loading={
           currentUserLoggedIn === undefined || currentUserLoggedIn === null
         }
@@ -107,10 +111,13 @@ const ShipmentsList = () => {
           title={`Edit Shipment / ${editedData.shipmentId}`}
           footer={
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <MondayButton className="Red" onClick={() => setIdToEdit(false)}>
+              <MondayButton
+                className="mondayButtonRed"
+                onClick={() => setIdToEdit(false)}
+              >
                 Cancel
               </MondayButton>
-              <MondayButton className="Green" onClick={handleEdit}>
+              <MondayButton className="mondayButtonGreen" onClick={handleEdit}>
                 Edit
               </MondayButton>
             </div>

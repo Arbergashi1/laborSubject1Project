@@ -19,7 +19,8 @@ const Navbar = () => {
                 fontSize: "23px",
               }}
             >
-              {currentUserLoggedIn.employeeType || currentUserLoggedIn.userType}
+              {currentUserLoggedIn?.employeeType ||
+                currentUserLoggedIn?.userType}
             </span>
           }{" "}
           Dashboard
@@ -31,7 +32,7 @@ const Navbar = () => {
             <NotificationsNoneIcon />
           </div>
           <div>
-            <Tooltip title={currentUserLoggedIn.fullName} placement="left">
+            <Tooltip title={currentUserLoggedIn?.fullName} placement="left">
               <Avatar
                 style={{
                   backgroundColor: "#fde3cf",
@@ -41,7 +42,7 @@ const Navbar = () => {
                   cursor: "pointer",
                 }}
               >
-                {currentUserLoggedIn.fullName[0]}
+                {currentUserLoggedIn?.fullName[0]}
               </Avatar>
             </Tooltip>
           </div>

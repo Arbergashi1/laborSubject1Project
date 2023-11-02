@@ -5,8 +5,11 @@ import { AppContext } from "../../context/appcontext";
 import getColumnDefs from "./getColumnDefs";
 import Card from "../../reusable/Card/Card";
 import { H1 } from "../../reusable/hTags/HTags";
+import { useDocumentTile } from "../../hooks/useDocumentTile";
 
 const LogsList = () => {
+  useDocumentTile({ title: "Logs | ADMINISTRATE | KSD" });
+
   const { editLogs, setEditLogs } = useContext(AppContext);
   const paginationOptions = {
     pageSize: 6,
@@ -15,7 +18,12 @@ const LogsList = () => {
 
   return (
     <BasePage preNavName={"Logs List"}>
-      <div style={{ display: "grid", gap: "15px" }}>
+      <div
+        style={{
+          display: "grid",
+          gap: "15px",
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -79,6 +87,20 @@ const LogsList = () => {
             background={"#004cff"}
             string={"Print Logs"}
             number={editLogs.filter(({ actionType }) => actionType === "Print")}
+            timeFiltering={schitchPeriod}
+          />
+          <Card
+            background={"#00ff80"}
+            string={"Login Logs"}
+            number={editLogs.filter(({ actionType }) => actionType === "Login")}
+            timeFiltering={schitchPeriod}
+          />
+          <Card
+            background={"#ff0000"}
+            string={"Logout Logs"}
+            number={editLogs.filter(
+              ({ actionType }) => actionType === "Logout"
+            )}
             timeFiltering={schitchPeriod}
           />
         </div>

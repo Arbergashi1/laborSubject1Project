@@ -52,6 +52,10 @@ const getColumnDefs = ({ setEditLogs }) => [
                 ? "#de0d0d"
                 : action === "Print"
                 ? "#004cff"
+                : action === "Login"
+                ? "#00ff80"
+                : action === "Logout"
+                ? "#ff0000"
                 : "",
           }}
         >

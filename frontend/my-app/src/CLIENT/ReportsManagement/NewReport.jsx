@@ -16,6 +16,8 @@ const NewReport = () => {
   const [selectedTypeOfReport, setSelectedTypeOfReport] = useState(null);
   const [fieldsToShow, setFieldsToShow] = useState([]);
   const [reportsObject, setReportsObject] = useState({});
+  const [loading, setLoading] = useState(false);
+
   console.log({ reportsObject });
 
   const reportTypes = [
@@ -101,6 +103,7 @@ const NewReport = () => {
   };
 
   const handleAddNewReport = () => {
+    setLoading(true);
     const apiUrl =
       "https://localhost:44312/api/ReportsManagement/CreateNewReport";
     const bodyObject = {
@@ -115,6 +118,8 @@ const NewReport = () => {
     };
     axios.post(apiUrl, bodyObject).then((res) => {
       if (res.data.statusCode === 200) {
+        setLoading(false);
+
         navigate("/reporstList");
         setReportsList((prev) => [...prev, bodyObject]);
         message.success(res.data.statusMessage);
@@ -136,7 +141,7 @@ const NewReport = () => {
               <button
                 onClick={() => onHandleReport(rep)}
                 key={index}
-                className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none"
+                className="mondayButtonBlue"
               >
                 {rep.reportType} <span>{rep.reportIcon}</span>
               </button>
@@ -165,6 +170,7 @@ const NewReport = () => {
             }}
             onChange={handleInputChange}
             clickEvent={handleAddNewReport}
+            loading={loading}
           />
         </div>
       )}

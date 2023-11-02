@@ -10,6 +10,7 @@ const Form = ({
   clickEvent,
   goBackButtonClick,
   createButtonText,
+  loading,
 }) => {
   const navigate = useNavigate();
 
@@ -44,12 +45,18 @@ const Form = ({
                           <select
                             className="inputForm"
                             onChange={(e) =>
-                              handleInputChange(el, field.field, e.target.value)
+                              handleInputChange(
+                                el,
+                                field.field || field.value,
+                                e.target.value
+                              )
                             }
                           >
                             {field.options.map((el) => {
                               return (
-                                <option value={el.field}>{el.label}</option>
+                                <option value={el.field || el.value}>
+                                  {el.label || el.value}
+                                </option>
                               );
                             })}
                           </select>
@@ -77,9 +84,11 @@ const Form = ({
                 }}
               >
                 {el !== "Sender Info" && (
-                  <>
+                  <div className="flex gap-10 flex-grow">
                     <MondayButton
-                      className="Yellow"
+                      loading={loading}
+                      disabled={loading}
+                      className="mondayButtonYellow"
                       onClick={
                         goBackButtonClick
                           ? goBackButtonClick
@@ -90,10 +99,15 @@ const Form = ({
                     >
                       Go Back
                     </MondayButton>
-                    <MondayButton className="Green" onClick={clickEvent}>
+                    <MondayButton
+                      className="mondayButtonGreen"
+                      onClick={clickEvent}
+                      loading={loading}
+                      disabled={loading}
+                    >
                       {createButtonText ? createButtonText : "Add Shipment"}
                     </MondayButton>
-                  </>
+                  </div>
                 )}
               </div>
             </div>

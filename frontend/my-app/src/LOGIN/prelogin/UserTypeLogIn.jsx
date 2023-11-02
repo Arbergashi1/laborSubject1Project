@@ -3,18 +3,27 @@ import { v4 as uuidv4 } from "uuid";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import BadgeIcon from "@mui/icons-material/Badge";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import { Checkbox, Divider, Steps, message } from "antd";
-import { useContext, useEffect, useState } from "react";
+import { Alert, Checkbox, Divider, Modal, Steps, message } from "antd";
+import { useContext, useState } from "react";
 import Login from "../Login";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/appcontext";
+import useSaveLogs from "../../hooks/UseSaveLogs";
+import MondayButton from "../../reusable/MondayButton/MondayButton";
+import { useDocumentTile } from "../../hooks/useDocumentTile";
+
 const UserTypeLogIn = ({}) => {
+  useDocumentTile({ title: "Auth | KSD" });
+
   const { setLoginData } = useContext(AppContext);
+  const saveLogs = useSaveLogs();
 
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [userTypeSelected, setUserTypeSelected] = useState("");
+  const [axiosErr, setAxiosErr] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [loginObject, setLoginObject] = useState(
     userTypeSelected === "Client"
       ? {
@@ -35,46 +44,67 @@ const UserTypeLogIn = ({}) => {
     setLoginObject({ ...loginObject, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    document.title = "Login - KSD Delivry";
-  }, []);
-
   const onHandleLogin = () => {
+    setLoading(true);
     const userApiUrl = "https://localhost:44312/api/ClientLogin/ClientLogin";
     const employeeApiUrl =
       "https://localhost:44312/api/EmployeeLogin/EmployeeLogin";
 
     if (userTypeSelected === "Client") {
-      axios.post(userApiUrl, loginObject).then((res) => {
-        if (res.data.statusCode === 200) {
-          message.success(res.data.statusMessage);
-          navigate("/");
-          setLoginData(res.data.clientManagement);
-          sessionStorage.setItem(
-            "clientLoggedInId",
-            res.data.clientManagement.clientId
-          );
-        } else {
-          message.error(res.data.statusMessage);
-        }
-      });
+      axios
+        .post(userApiUrl, loginObject)
+        .then((res) => {
+          console.log({ res });
+          if (res.data.statusCode === 200) {
+            setLoading(false);
+            message.success(res.data.statusMessage);
+            navigate("/");
+            setLoginData(res.data.clientManagement);
+            sessionStorage.setItem(
+              "clientLoggedInId",
+              res.data.clientManagement.clientId
+            );
+          } else {
+            message.error(res.data.statusMessage);
+            setLoading(false);
+          }
+        })
+        .catch((err) => setAxiosErr(err));
     } else if (
       userTypeSelected === "Employee" ||
       userTypeSelected === "Administrate"
     ) {
-      axios.post(employeeApiUrl, loginObject).then((res) => {
-        if (res.data.statusCode === 200) {
-          message.success(res.data.statusMessage);
-          navigate("/clientsList");
-          setLoginData(res.data.employeeManagement);
-          sessionStorage.setItem(
-            "empAdmLoggedInId",
-            res.data.employeeManagement.employeeId
-          );
-        } else {
-          message.error(res.data.statusMessage);
-        }
-      });
+      axios
+        .post(employeeApiUrl, loginObject)
+        .then((res) => {
+          if (res.data.statusCode === 200) {
+            setLoading(false);
+            message.success(res.data.statusMessage);
+            if (userTypeSelected === "Employee") {
+              navigate("/myShipments");
+            } else if (userTypeSelected === "Administrate") {
+              navigate("/clientsList");
+            }
+            setLoginData(res.data.employeeManagement);
+            sessionStorage.setItem(
+              "empAdmLoggedInId",
+              res.data.employeeManagement.employeeId
+            );
+            saveLogs({
+              actionType: "Login",
+              previousData: "",
+              updatedData: loginObject?.email,
+            });
+          } else {
+            message.error(res.data.statusMessage);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.log({ err });
+          setAxiosErr(err);
+          setLoading(false);
+        });
     }
   };
 
@@ -128,6 +158,7 @@ const UserTypeLogIn = ({}) => {
                 userTypeSelected,
                 onHandleLogin,
                 loginObject,
+                loading,
                 setLoginData,
               }}
             />
@@ -169,6 +200,42 @@ const UserTypeLogIn = ({}) => {
           )}
         </div>
       </div>
+      {/* error */}
+      {axiosErr && (
+        <Modal
+          open={axiosErr}
+          title={
+            <div>
+              <Alert type="error" showIcon message={axiosErr.message} />
+            </div>
+          }
+          centered
+          footer={
+            <div>
+              <MondayButton
+                className="mondayButtonRed"
+                onClick={() => setAxiosErr(false)}
+              >
+                Close
+              </MondayButton>
+            </div>
+          }
+          onCancel={() => setAxiosErr(false)}
+          maskClosable={true}
+        >
+          <div className="bg-slate-100">
+            <div>
+              <Alert
+                type="error"
+                showIcon
+                description={
+                  " Sorry, the reason you are seing this is cause we had a network error, try refreshing the page!"
+                }
+              />
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

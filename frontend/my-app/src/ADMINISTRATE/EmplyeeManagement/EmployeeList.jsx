@@ -5,6 +5,7 @@ import { Drawer, Table } from "antd";
 import { columnDefs } from "./utils/columnDefs";
 import EditEmployeeModal from "./EditEmployeeModal";
 import Card from "../../reusable/Card/Card";
+import { useDocumentTile } from "../../hooks/useDocumentTile";
 
 const EmployeeList = () => {
   const [idToEdit, setIdToEdit] = useState(false);
@@ -16,6 +17,8 @@ const EmployeeList = () => {
   const paginationOptions = {
     pageSize: 6,
   };
+
+  useDocumentTile({ title: "Employee List | ADMINISTRATE | KSD" });
 
   return (
     <BasePage preNavName={"Employee List"}>
