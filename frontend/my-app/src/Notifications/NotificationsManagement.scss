@@ -1,0 +1,15 @@
+.notifications {
+  display: grid;
+  gap: 12px;
+  max-height: 80vh;
+  overflow-y: scroll;
+  padding-right: 7px;
+
+  .notificationsHeader {
+    display: flex;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}

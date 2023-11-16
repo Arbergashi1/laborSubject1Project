@@ -9,8 +9,8 @@ const MondayButton = ({
   disabled,
   style,
   loading,
+  type,
 }) => {
-  console.log({ children, className, onClick, disabled, style, loading });
   const classNamesToStyles = {
     mondayButtonRed: {
       base: "bg-red-500 text-white w-full rounded h-8 font-bold cursor-pointer",
@@ -33,6 +33,7 @@ const MondayButton = ({
   const buttonStyle = classNamesToStyles[className];
   return (
     <button
+      type={type || ""}
       className={`${buttonStyle?.base} ${
         disabled ? buttonStyle?.disabled : ""
       }`}

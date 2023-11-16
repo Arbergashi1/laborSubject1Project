@@ -41,7 +41,6 @@ const ShipmentsList = () => {
 
     const apiUrl = `https://localhost:44312/api/ShipmentsManagement/EditShipmentInfo/${editedData.shipmentId}`;
     axios.put(apiUrl, editObject).then((res) => {
-      console.log({ res });
       if (res.data.statusCode === 200) {
         message.success(res.data.statusMessage);
         setEditedData(editObject);
@@ -76,6 +75,14 @@ const ShipmentsList = () => {
     });
   };
 
+  const viewShipmentById = (record) => {
+    navigate(`/shipmentDetails/${record.shipmentId}`, {
+      state: {
+        record,
+      },
+    });
+  };
+
   // const goToTop = () => {
   //   window.scrollTo(0, 0);
   // };
@@ -83,10 +90,25 @@ const ShipmentsList = () => {
   //   goToTop();
   // }, []);
 
+  const getStatusRowClassName = (status) => {
+    switch (status) {
+      case "Awaiting Pickup":
+        return "awaiting-pickup-row";
+      case "In Delivry":
+        return "in-delivery-row";
+      case "Deliverd":
+        return "delivered-row";
+      case "Refuzed":
+        return "refused-row";
+      default:
+        return "";
+    }
+  };
+
   return (
     <BasePage {...{ preNavName: "Shipments List" }}>
       <Table
-        bordered
+        rowHoverBg={false}
         loading={
           currentUserLoggedIn === undefined || currentUserLoggedIn === null
         }
@@ -97,10 +119,12 @@ const ShipmentsList = () => {
           editHanlder,
           printHandler,
           saveLogs,
+          viewShipmentById,
         })}
         dataSource={preferences}
         pagination={paginationOptions}
         className={`shipmentsListTable`}
+        rowClassName={(record) => getStatusRowClassName(record.status)}
       />
 
       {idToEdit && (

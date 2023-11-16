@@ -11,6 +11,7 @@ const getColumnDefs = ({
   editHanlder,
   printHandler,
   saveLogs,
+  viewShipmentById,
 }) => [
   {
     title: "Created at",
@@ -61,26 +62,40 @@ const getColumnDefs = ({
     dataIndex: "status",
     key: "status",
     align: "center",
+    // render: (status) => {
+    //   return (
+    //     <span
+    //       style={{
+    //         padding: "4px",
+    //         borderRadius: "10px",
+    //         fontWeight: "600",
+    //         color: "white",
+    //         backgroundColor:
+    //           status === "Awaiting Pickup"
+    //             ? "#004cff"
+    //             : status === "In Delivry"
+    //             ? "#efe770"
+    //             : status === "Deliverd"
+    //             ? "#0dff00"
+    //             : status === "Refuzed"
+    //             ? "#de0d0d"
+    //             : "",
+    //         display: "flex",
+    //         // width: "110%",
+    //         justifyContent: "center",
+    //       }}
+    //     >
+    //       {status}
+    //     </span>
+    //   );
+    // },
     render: (status) => {
       return (
         <span
           style={{
-            padding: "4px",
-            borderRadius: "10px",
             fontWeight: "600",
             color: "white",
-            backgroundColor:
-              status === "Awaiting Pickup"
-                ? "#004cff"
-                : status === "In Delivry"
-                ? "#efe770"
-                : status === "Deliverd"
-                ? "#0dff00"
-                : status === "Refuzed"
-                ? "#de0d0d"
-                : "",
             display: "flex",
-            // width: "110%",
             justifyContent: "center",
           }}
         >
@@ -109,7 +124,7 @@ const getColumnDefs = ({
     render: (_, record) => {
       console.log({ record });
       return (
-        <div className="grid">
+        <div className="grid justify-center">
           <div className="flex text-xs gap-1">
             {record.status === "Deliverd" || record.status === "Refuzed" ? (
               <>Shipment updated by</>
@@ -121,7 +136,7 @@ const getColumnDefs = ({
             ) : (
               <></>
             )}
-            <span className="font-medium text-violet-500">
+            <span className="font-bold text-violet-500">
               {record.inWith || "-||-"}
             </span>
           </div>
@@ -160,17 +175,14 @@ const getColumnDefs = ({
               <a>
                 <Tooltip title="Delete">
                   <DeleteIcon
-                    color="error"
+                    color=""
                     onClick={() => handleDelete(record.shipmentId)}
                   />
                 </Tooltip>
               </a>
               <a>
                 <Tooltip title="Edit">
-                  <EditIcon
-                    color="primary"
-                    onClick={() => editHanlder(record)}
-                  />
+                  <EditIcon color="" onClick={() => editHanlder(record)} />
                 </Tooltip>
               </a>
             </>
@@ -178,7 +190,10 @@ const getColumnDefs = ({
 
           <a>
             <Tooltip title="View Details">
-              <RemoveRedEyeIcon color="secondary" />
+              <RemoveRedEyeIcon
+                color=""
+                onClick={() => viewShipmentById(record)}
+              />
             </Tooltip>
           </a>
           <a>
@@ -188,7 +203,7 @@ const getColumnDefs = ({
           </a>
           <a>
             <Tooltip title="Add Note">
-              <NoteAltIcon color="action" />
+              <NoteAltIcon color="" />
             </Tooltip>
           </a>
         </div>

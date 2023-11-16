@@ -1,0 +1,25 @@
+.shipmentsListTable {
+  .ant-table-row {
+    color: white;
+    font-weight: 600;
+    font-size: small;
+  }
+  & .awaiting-pickup-row {
+    background-color: #004cff;
+  }
+
+  & .in-delivery-row {
+    background-color: #efe770;
+  }
+
+  & .delivered-row {
+    background-color: #0dff00;
+  }
+
+  & .refused-row {
+    background-color: #de0d0d;
+  }
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: unset;
+  }
+}

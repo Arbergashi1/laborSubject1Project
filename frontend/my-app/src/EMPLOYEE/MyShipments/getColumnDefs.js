@@ -11,6 +11,7 @@ const getColumnDefs = ({
   setPopoverCloser,
   shipmentsList,
   setShipmentsList,
+  sendNotification,
 }) => [
   {
     title: "Created at",
@@ -136,11 +137,26 @@ const getColumnDefs = ({
         },
       ];
       const radioHandler = (value) => {
-        console.log({ value });
         setSelectedStatus(value);
       };
+      console.log(record.status === "Deliverd");
 
       const handleSubmit = () => {
+        sendNotification({
+          notificationToShowIn: "Client",
+          notificationDescription:
+            selectedStatus === "Deliverd"
+              ? "Shipment sended succesfuly to client"
+              : "Shipment Refuzed by client",
+          notificationsDetails: `/shipmentDetails/${record.shipmentId}`,
+          state: {
+            record: shipmentsList.find(
+              ({ shipmentId }) => shipmentId === record.shipmentId
+            ),
+          },
+          notificationToSendTo: record.userId,
+        });
+
         const apiUrl = `https://localhost:44312/api/ShipmentsManagement/EditShipmentInfo/${record.shipmentId}`;
         const updatedShipmentList = shipmentsList.map((ship) => {
           if (ship.shipmentId === record.shipmentId) {
@@ -153,7 +169,6 @@ const getColumnDefs = ({
           return ship;
         });
 
-        console.log({ updatedShipmentList });
         axios
           .put(
             apiUrl,

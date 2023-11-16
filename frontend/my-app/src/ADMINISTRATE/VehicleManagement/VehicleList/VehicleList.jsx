@@ -72,7 +72,7 @@ const VehicleList = () => {
           })}
           dataSource={vehicleList}
           pagination={paginationOptions}
-          className={`shipmentsListTable`}
+          className={``}
         />
       </div>
       <EditModal

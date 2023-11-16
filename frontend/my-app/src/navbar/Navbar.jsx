@@ -1,12 +1,30 @@
 import "./Navbar.scss";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../context/appcontext";
-import { Avatar, Tooltip } from "antd";
+import { Avatar, Popover, Tooltip } from "antd";
+import NotificationsManagement from "../Notifications/NotificationsManagement";
+import Badge from "@mui/material/Badge";
+import useSendNotification from "../hooks/useSendNotification";
 
 const Navbar = () => {
-  const { currentUserLoggedIn } = useContext(AppContext);
+  const { notifiactionsList, setNotifiactionsList } = useContext(AppContext);
 
+  const { currentUserLoggedIn } = useContext(AppContext);
+  const [openNotifications, setOpenNotifications] = useState(false);
+
+  const notificationsFiltered = notifiactionsList.filter(
+    ({ notificationToShowIn, notificationToSendTo }) => {
+      return (
+        (notificationToShowIn === currentUserLoggedIn?.employeeType &&
+          notificationToSendTo === currentUserLoggedIn?.employeeId) ||
+        (notificationToShowIn === currentUserLoggedIn?.userType &&
+          notificationToSendTo === currentUserLoggedIn?.clientId)
+      );
+    }
+  );
+
+  console.log({ notificationsFiltered });
   return (
     <div className="navbar">
       <div style={{ width: "20%" }}>
@@ -29,7 +47,31 @@ const Navbar = () => {
       <div className="navbarWrapper">
         <div className="navbarItems">
           <div className="navbarItem">
-            <NotificationsNoneIcon />
+            <Badge
+              badgeContent={
+                notificationsFiltered.filter(({ isRead }) => isRead === false)
+                  .length
+              }
+              color="error"
+            >
+              <Popover
+                overlayInnerStyle={{ backgroundColor: "#fafafa " }}
+                open={openNotifications}
+                content={
+                  <NotificationsManagement
+                    {...{
+                      notifiactionsList,
+                      setNotifiactionsList,
+                      notificationsFiltered,
+                    }}
+                  />
+                }
+              >
+                <NotificationsNoneIcon
+                  onClick={() => setOpenNotifications((prev) => !prev)}
+                />
+              </Popover>
+            </Badge>
           </div>
           <div>
             <Tooltip title={currentUserLoggedIn?.fullName} placement="left">

@@ -21,14 +21,16 @@ import ReportList from "./CLIENT/ReportsManagement/ReportList";
 import ReportsManagement from "./ADMINISTRATE/ReportsManagement/ReportsManagement";
 import MyShipments from "./EMPLOYEE/MyShipments/MyShipments";
 import UpdateShipments from "./ADMINISTRATE/UpdateShipments/UpdateShipments";
+import ShipmentById from "./CLIENT/ShipmentById/ShipmentById";
 
 function App() {
   const { currentUserLoggedIn } = useContext(AppContext);
-  console.log({ currentUserLoggedIn });
 
   return (
     <Routes>
       {/* public route */}
+      <Route path="/" element={<ShipmentsList />} />
+
       <Route path="/auth" element={<UserTypeLogIn />} />
       {/* private routes */}
       {currentUserLoggedIn !== null ? (
@@ -44,6 +46,7 @@ function App() {
               />
               <Route path="/newReport" element={<NewReport />} />
               <Route path="/reporstList" element={<ReportList />} />
+              <Route path="/shipmentDetails/:id" element={<ShipmentById />} />
             </>
           ) : currentUserLoggedIn?.employeeType === "Administrate" ? (
             <>

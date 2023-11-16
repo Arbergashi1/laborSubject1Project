@@ -15,6 +15,7 @@ const getColumnDefs = ({
   setIdToEdit,
   popoverCloser,
   setPopoverCloser,
+  sendNotification,
 }) => [
   {
     title: "Created at",
@@ -134,12 +135,9 @@ const getColumnDefs = ({
         fullName,
       }));
       const radioHandler = (value) => {
-        console.log({ value });
-
         const filterCouriers = employeeList.filter(
           ({ address }) => address === value
         );
-        console.log({ filterCouriers });
         setFilteredCouriers(filterCouriers);
       };
 
@@ -156,7 +154,6 @@ const getColumnDefs = ({
       const handleSubmit = () => {
         const apiUrl = `https://localhost:44312/api/ShipmentsManagement/EditShipmentInfo/${idToEdit}`;
         const updatedShipmentList = shipmentsList.map((ship) => {
-          console.log(selectedTag.employeeId);
           if (ship.shipmentId === idToEdit) {
             return {
               ...ship,
@@ -167,9 +164,7 @@ const getColumnDefs = ({
           }
           return ship;
         });
-        console.log({ updatedShipmentList });
 
-        console.log({ updatedShipmentList });
         axios
           .put(
             apiUrl,
@@ -186,6 +181,13 @@ const getColumnDefs = ({
               message.error(res.data.statusMessage);
             }
           });
+
+        sendNotification({
+          notificationToShowIn: "Client",
+          notificationDescription: "Shipment is send for delivry...",
+          notificationsDeatils: record.shipmentId,
+          notificationToSendTo: record.userId,
+        });
       };
       function popoverCloserFunc() {
         setPopoverCloser(false);
@@ -194,7 +196,6 @@ const getColumnDefs = ({
         setSelectedTag({});
         getEmployeeDetails = [];
       }
-      console.log({ getEmployeeDetails });
       const updateShipmentContent = (
         <div className="grid w-80 gap-5">
           <div className="font-semibold text-gray-900 border rounded-md p-2 text-center">

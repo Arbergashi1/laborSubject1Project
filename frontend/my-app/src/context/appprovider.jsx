@@ -21,7 +21,9 @@ const AppProvider = ({ children }) => {
   const [editLogs, setEditLogs] = useState([]);
   // 6
   const [reportsList, setReportsList] = useState([]);
-
+  // 7
+  const [notifiactionsList, setNotifiactionsList] = useState([]);
+  console.log({ notifiactionsList });
   // 4
   const preferences =
     currentUserLoggedIn !== null &&
@@ -119,13 +121,26 @@ const AppProvider = ({ children }) => {
         const reportsListApi =
           "https://localhost:44312/api/ReportsManagement/GetListOfReports";
         const response = await axios.get(reportsListApi);
-        console.log({ response });
         const sortedData = response.data.listOfReports.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
         setReportsList(sortedData);
       } catch (error) {
         console.log("Error occurred while fetching registrations:", error);
+      }
+    }
+    async function fetchNotifications() {
+      try {
+        const responseListApi =
+          "https://localhost:44312/api/NotificationsManagement/GetListOfNotifications";
+        console.log({ responseListApi });
+        const response = await axios.get(responseListApi);
+        const sortedData = response.data.listOfNotifications.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setNotifiactionsList(sortedData);
+      } catch (error) {
+        console.log({ error });
       }
     }
     fetchClientsList();
@@ -135,6 +150,7 @@ const AppProvider = ({ children }) => {
     fetchVehicles();
     fetchLogs();
     fetchReports();
+    fetchNotifications();
   }, []);
 
   useEffect(() => {
@@ -176,6 +192,8 @@ const AppProvider = ({ children }) => {
     setEditLogs,
     reportsList,
     setReportsList,
+    notifiactionsList,
+    setNotifiactionsList,
   };
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 };

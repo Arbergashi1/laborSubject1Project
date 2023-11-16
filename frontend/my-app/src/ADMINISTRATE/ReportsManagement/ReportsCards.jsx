@@ -5,14 +5,15 @@ import MondayButton from "../../reusable/MondayButton/MondayButton";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import { UseDateReader } from "../../hooks/UseDateReader";
 import axios from "axios";
+import useSendNotification from "../../hooks/useSendNotification";
 
 const ReportsCards = ({ report, index, setReportsList, reportsList }) => {
   const [popoverVisible, setPopoverVisible] = useState(false);
   const [trackStatusChanger, setTrackStatusChanger] = useState(false);
   const [reportResponse, setReportResponse] = useState("");
   const [finalResponse, setFinalResponse] = useState(false);
-  console.log({ finalResponse });
   const { TextArea } = Input;
+  const sendNotification = useSendNotification();
 
   const reportsColors =
     report.statusOfReport === "In Review"
@@ -66,6 +67,13 @@ const ReportsCards = ({ report, index, setReportsList, reportsList }) => {
       .then((res) => {
         if (res.data.statusCode === 200) {
           message.success(res.data.statusMessage);
+          sendNotification({
+            notificationToShowIn: "Client",
+            notificationDescription: `Report Reviewed with status - ${reportResponse}`,
+            notificationsDetails: "",
+            notificationToSendTo: report.userId,
+          });
+
           setReportsList((prev) =>
             prev.map((report) => {
               if (report.reportId === reportId) {
@@ -85,8 +93,6 @@ const ReportsCards = ({ report, index, setReportsList, reportsList }) => {
       })
       .catch((err) => console.log(err));
   };
-
-  console.log({ reportsList });
 
   return (
     <Card

@@ -18,7 +18,6 @@ const UserTypeLogIn = ({}) => {
 
   const { setLoginData } = useContext(AppContext);
   const saveLogs = useSaveLogs();
-
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [userTypeSelected, setUserTypeSelected] = useState("");
@@ -46,6 +45,7 @@ const UserTypeLogIn = ({}) => {
 
   const onHandleLogin = () => {
     setLoading(true);
+
     const userApiUrl = "https://localhost:44312/api/ClientLogin/ClientLogin";
     const employeeApiUrl =
       "https://localhost:44312/api/EmployeeLogin/EmployeeLogin";
@@ -54,7 +54,6 @@ const UserTypeLogIn = ({}) => {
       axios
         .post(userApiUrl, loginObject)
         .then((res) => {
-          console.log({ res });
           if (res.data.statusCode === 200) {
             setLoading(false);
             message.success(res.data.statusMessage);
@@ -69,7 +68,11 @@ const UserTypeLogIn = ({}) => {
             setLoading(false);
           }
         })
-        .catch((err) => setAxiosErr(err));
+        .catch((err) => {
+          console.log({ err });
+          setAxiosErr(err);
+          setLoading(false);
+        });
     } else if (
       userTypeSelected === "Employee" ||
       userTypeSelected === "Administrate"

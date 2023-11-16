@@ -21,7 +21,6 @@ const Card = ({ background, number, string, timeFiltering }) => {
         const updatedDate =
           updatedAt?.split(",")[0] || createdAt?.split(",")[0];
         const currentDatePart = currentDateString?.split(",")[0];
-        console.log({ updatedDate });
 
         return updatedDate === currentDatePart;
       }).length

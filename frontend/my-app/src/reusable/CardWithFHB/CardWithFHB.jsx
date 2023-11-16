@@ -2,7 +2,6 @@ import React from "react";
 import MondayButton from "../MondayButton/MondayButton";
 
 const CardWithFHB = ({ title, bgColor, body, footer, status }) => {
-  console.log({ body });
   return (
     <div className="border bg-white rounded-md h-64">
       <div

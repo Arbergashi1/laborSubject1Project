@@ -14,7 +14,6 @@ const PrintShipment = () => {
   const navigate = useNavigate();
   const { record } = location.state;
   const { currentUserLoggedIn } = useContext(AppContext);
-  console.log({ record });
 
   const handlePrint = () => {
     setTimeout(() => {

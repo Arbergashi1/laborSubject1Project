@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { message } from "antd";
 import axios from "axios";
+import useSendNotification from "../../hooks/useSendNotification";
 
 const NewReport = () => {
   const navigate = useNavigate();
@@ -17,8 +18,7 @@ const NewReport = () => {
   const [fieldsToShow, setFieldsToShow] = useState([]);
   const [reportsObject, setReportsObject] = useState({});
   const [loading, setLoading] = useState(false);
-
-  console.log({ reportsObject });
+  const sendNotification = useSendNotification();
 
   const reportTypes = [
     { reportType: "Delays in shipments", reportIcon: "🚚" },
@@ -99,7 +99,6 @@ const NewReport = () => {
     const updatedShipmentObject = { ...reportsObject };
     updatedShipmentObject[field] = value;
     setReportsObject(updatedShipmentObject);
-    console.log({ updatedShipmentObject });
   };
 
   const handleAddNewReport = () => {
@@ -119,10 +118,15 @@ const NewReport = () => {
     axios.post(apiUrl, bodyObject).then((res) => {
       if (res.data.statusCode === 200) {
         setLoading(false);
-
         navigate("/reporstList");
         setReportsList((prev) => [...prev, bodyObject]);
         message.success(res.data.statusMessage);
+        sendNotification({
+          notificationToShowIn: "Administrate",
+          notificationDescription: bodyObject.reportCategory,
+          notificationsDeatils: `/reportsManagement`,
+          notificationToSendTo: "f5aaa522-d9fa-4d8a-a2b5-1e7f24990350",
+        });
       } else {
         message.success(res.data.statusMessage);
       }

@@ -12,8 +12,6 @@ const ClientDetails = () => {
   const location = useLocation();
   const { record } = location.state;
   const { shipmentsList } = useContext(AppContext);
-  console.log({ shipmentsList });
-  console.log({ record });
 
   const shipmentsFilterByStatus = shipmentsList.filter(
     ({ status }) => status === "Deliverd"

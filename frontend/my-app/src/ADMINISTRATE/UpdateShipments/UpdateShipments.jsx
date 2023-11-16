@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { AppContext } from "../../context/appcontext";
 import getColumnDefs from "./getColumnDefs";
 import { useDocumentTile } from "../../hooks/useDocumentTile";
+import useSendNotification from "../../hooks/useSendNotification";
 
 const UpdateShipments = () => {
   useDocumentTile({ title: "Update Shipments | ADMINISTRATE | KSD" });
@@ -14,7 +15,7 @@ const UpdateShipments = () => {
   const [selectedTag, setSelectedTag] = useState({});
   const [idToEdit, setIdToEdit] = useState(false);
   const [popoverCloser, setPopoverCloser] = useState(false);
-
+  const sendNotification = useSendNotification();
   return (
     <BasePage preNavName={"Update Shipments"}>
       <Table
@@ -32,6 +33,7 @@ const UpdateShipments = () => {
           setIdToEdit,
           popoverCloser,
           setPopoverCloser,
+          sendNotification,
         })}
       />
     </BasePage>

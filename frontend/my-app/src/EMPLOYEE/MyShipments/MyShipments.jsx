@@ -4,10 +4,11 @@ import { AppContext } from "../../context/appcontext";
 import { useContext, useState } from "react";
 import getColumnDefs from "./getColumnDefs";
 import { useDocumentTile } from "../../hooks/useDocumentTile";
+import useSendNotification from "../../hooks/useSendNotification";
 
 const MyShipments = () => {
   useDocumentTile({ title: "My Shipments | Courier | KSD" });
-
+  const { setNotifiactionsList } = useContext(AppContext);
   const { shipmentsList, setShipmentsList } = useContext(AppContext);
   const { currentUserLoggedIn } = useContext(AppContext);
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -15,7 +16,8 @@ const MyShipments = () => {
   const myShipments = shipmentsList.filter(
     ({ shipAssignedTo }) => shipAssignedTo === currentUserLoggedIn?.employeeId
   );
-  console.log({ myShipments });
+  const sendNotification = useSendNotification();
+
   return (
     <BasePage preNavName={"My Shipments"}>
       <Table
@@ -27,6 +29,9 @@ const MyShipments = () => {
           setPopoverCloser,
           shipmentsList,
           setShipmentsList,
+          setNotifiactionsList,
+          sendNotification,
+          currentUserLoggedIn,
         })}
         dataSource={myShipments}
       />
