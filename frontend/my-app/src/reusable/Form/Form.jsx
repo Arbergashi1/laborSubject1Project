@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Alert, Input } from "antd";
 import "./Form.scss";
 import MondayButton from "../MondayButton/MondayButton";
 import { useNavigate } from "react-router-dom";
@@ -11,11 +11,14 @@ const Form = ({
   goBackButtonClick,
   createButtonText,
   loading,
+  validation,
+  setValidation,
 }) => {
   const navigate = useNavigate();
 
   const headingOfInpput = Object.keys(inputStructure);
   const handleInputChange = (section, field, value) => {
+    console.log({ section, field, value });
     onChange(section, field, value);
   };
   const { TextArea } = Input;
@@ -27,6 +30,22 @@ const Form = ({
           return (
             <div>
               <H1>{el}</H1>
+              {el !== "Sender Info" && validation && (
+                <Alert
+                  style={{
+                    padding: "5px",
+                    marginBottom: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  showIcon
+                  closable
+                  message="error"
+                  description="All fields are required!"
+                  type="error"
+                  onClose={() => setValidation(false)}
+                />
+              )}
               <div className="areaFormInput">
                 {Object.values(
                   inputStructure[el].map((field) => {
@@ -76,6 +95,7 @@ const Form = ({
                   })
                 )}
               </div>
+
               <div
                 style={{
                   margin: "10px 0 10px",

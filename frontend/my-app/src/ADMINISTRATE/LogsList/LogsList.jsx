@@ -6,6 +6,7 @@ import getColumnDefs from "./getColumnDefs";
 import Card from "../../reusable/Card/Card";
 import { H1 } from "../../reusable/hTags/HTags";
 import { useDocumentTile } from "../../hooks/useDocumentTile";
+import InfoIcon from "@mui/icons-material/Info";
 
 const LogsList = () => {
   useDocumentTile({ title: "Logs | ADMINISTRATE | KSD" });
@@ -43,6 +44,12 @@ const LogsList = () => {
                 checkedChildren="Click to change cards to Today stats"
               />
             </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>
+              <InfoIcon color="info" />
+            </span>
+            <span>The stats will change for the card statuses</span>
           </div>
         </div>
         <div

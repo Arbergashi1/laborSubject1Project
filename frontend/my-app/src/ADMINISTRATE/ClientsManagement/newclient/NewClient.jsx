@@ -8,6 +8,7 @@ import axios from "axios";
 import BasePage from "../../../BasePage/BasePage";
 import MondayButton from "../../../reusable/MondayButton/MondayButton";
 import { useDocumentTile } from "../../../hooks/useDocumentTile";
+import { Alert } from "@mui/material";
 
 const NewClient = () => {
   useDocumentTile({ title: "New Client | ADMINISTRATE | KSD" });
@@ -27,6 +28,15 @@ const NewClient = () => {
     userStatus: "ACTIVE",
     clientPassword: "",
   });
+
+  const disabledButton =
+    clientObject.fullName !== "" &&
+    clientObject.email !== "" &&
+    clientObject.phoneNumber !== "" &&
+    clientObject.firmName !== "" &&
+    clientObject.state !== "" &&
+    clientObject.address !== "" &&
+    clientObject.clientPassword !== "";
 
   const resetFields = () => {
     setClientObject({
@@ -60,6 +70,9 @@ const NewClient = () => {
   return (
     <BasePage preNavName={"Add New Client"}>
       <div className="addNewClient">
+        <div className="flex items-center pb-3 ">
+          <Alert color="info">All fields are requeired</Alert>
+        </div>
         <div className="addNewClientCard">
           <div style={{ display: "grid" }}>
             <span>Client Full Name</span>
@@ -147,7 +160,11 @@ const NewClient = () => {
         </div>
 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <MondayButton onClick={handleSubmit} className="mondayButtonGreen">
+          <MondayButton
+            onClick={handleSubmit}
+            className="mondayButtonGreen"
+            disabled={!disabledButton}
+          >
             submit
           </MondayButton>
         </div>

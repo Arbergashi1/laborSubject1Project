@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import PrintIcon from "@mui/icons-material/Print";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import axios from "axios";
+import CreditCardOffIcon from "@mui/icons-material/CreditCardOff";
 
 const getColumnDefs = ({
   setShipmentsList,
@@ -12,6 +13,9 @@ const getColumnDefs = ({
   printHandler,
   saveLogs,
   viewShipmentById,
+  setNoteModal,
+  notesList,
+  shipmentsList,
 }) => [
   {
     title: "Created at",
@@ -105,6 +109,25 @@ const getColumnDefs = ({
     },
   },
   {
+    title: "Is paid",
+    dataIndex: "",
+    key: "",
+    align: "center",
+    render: (_, record) => {
+      console.log({ record });
+      return record.isPaid ? (
+        <img
+          title="View Payment"
+          src="https://eds-ks.com/wp-content/themes/kichu/images/paid.png"
+        />
+      ) : (
+        <>
+          <CreditCardOffIcon /> not paid
+        </>
+      );
+    },
+  },
+  {
     title: "Updated At",
     dataIndex: "updatedAt",
     key: "updatedAt",
@@ -115,6 +138,22 @@ const getColumnDefs = ({
     dataIndex: "notes",
     key: "notes",
     align: "center",
+    render: (_, data) => {
+      const specificShipmentId = data.shipmentId;
+
+      const findedNotes = notesList?.filter(
+        ({ shipmentId: listOfNotesId }) => listOfNotesId === specificShipmentId
+      );
+      return (
+        <div
+          className={`text-blue-700 font-bold cursor-pointer ${
+            findedNotes?.length === 0 && "cursor-not-allowed"
+          }`}
+        >
+          {findedNotes?.length}
+        </div>
+      );
+    },
   },
   {
     title: "In Delivry With",
@@ -122,7 +161,6 @@ const getColumnDefs = ({
     key: "inWith",
     align: "center",
     render: (_, record) => {
-      console.log({ record });
       return (
         <div className="grid justify-center">
           <div className="flex text-xs gap-1">
@@ -167,32 +205,43 @@ const getColumnDefs = ({
           }
         });
       };
+
       return (
         <div style={{ display: "flex", gap: "10px" }}>
           {record.status === "Awaiting Pickup" && (
             <>
               {" "}
               <a>
-                <Tooltip title="Delete">
+                <Tooltip title="Delete" color="#da2417">
                   <DeleteIcon
                     color=""
                     onClick={() => handleDelete(record.shipmentId)}
+                    style={{ color: "#da2417" }}
                   />
                 </Tooltip>
               </a>
               <a>
-                <Tooltip title="Edit">
-                  <EditIcon color="" onClick={() => editHanlder(record)} />
+                <Tooltip title="Edit " color="#00bcd4">
+                  <EditIcon
+                    color=""
+                    onClick={() => editHanlder(record)}
+                    style={{ color: "#00bcd4" }}
+                  />
                 </Tooltip>
               </a>
             </>
           )}
 
           <a>
-            <Tooltip title="View Details">
+            <Tooltip
+              title="View Details"
+              overlayInnerStyle={{ color: "black" }}
+              color="white"
+            >
               <RemoveRedEyeIcon
-                color=""
-                onClick={() => viewShipmentById(record)}
+                onClick={() => {
+                  viewShipmentById(record);
+                }}
               />
             </Tooltip>
           </a>
@@ -203,7 +252,10 @@ const getColumnDefs = ({
           </a>
           <a>
             <Tooltip title="Add Note">
-              <NoteAltIcon color="" />
+              <NoteAltIcon
+                color=""
+                onClick={() => setNoteModal(record.shipmentId)}
+              />
             </Tooltip>
           </a>
         </div>

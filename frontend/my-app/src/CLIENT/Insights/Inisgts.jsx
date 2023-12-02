@@ -6,6 +6,7 @@ import AdvancedCard from "../../reusable/AdvancedCard/AdvancedCard";
 import { Switch } from "antd";
 import { H1 } from "../../reusable/hTags/HTags";
 import { useDocumentTile } from "../../hooks/useDocumentTile";
+import InfoIcon from "@mui/icons-material/Info";
 
 const Inisgts = () => {
   useDocumentTile({ title: "Shipments Insights | KSD" });
@@ -14,9 +15,7 @@ const Inisgts = () => {
   const chargeOfDelivry = preferences.filter(
     ({ status }) => status === "Deliverd"
   );
-  console.log({ preferences });
   const [schitchPeriod, setSchitchPeriod] = useState(false);
-  console.log({ schitchPeriod });
 
   return (
     <BasePage preNavName={"Insights"}>
@@ -29,6 +28,7 @@ const Inisgts = () => {
             borderRadius: "20px",
             boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
             background: "white",
+            alignItems: "center",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
@@ -40,6 +40,12 @@ const Inisgts = () => {
                 checkedChildren="Click to change cards to Today stats"
               />
             </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>
+              <InfoIcon color="info" />
+            </span>
+            <span>The stats will change for the card statuses</span>
           </div>
         </div>
         <div

@@ -38,6 +38,11 @@ export const sideBarElements = [
     icon: <ReportIcon />,
     path: "/reporstList",
   },
+  {
+    label: "Payments",
+    icon: <PaymentsIcon />,
+    path: "/payments",
+  },
 ];
 
 export const administrateSideBarEl = [

@@ -11,18 +11,35 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useSaveLogs from "../../../hooks/UseSaveLogs";
 import { useDocumentTile } from "../../../hooks/useDocumentTile";
+import { v4 as uuidv4 } from "uuid";
+import FilterShipments from "./FilterShipments";
 
 const ShipmentsList = () => {
   useDocumentTile({ title: "Shipments | KSD" });
+  const [clickedApply, setClickedApply] = useState(false);
+  const [idToEdit, setIdToEdit] = useState(false);
+  const [editedData, setEditedData] = useState({});
+  const [noteModal, setNoteModal] = useState(false);
+  const [noteDescription, setNoteDescription] = useState("");
+  const [filters, setFilters] = useState({
+    searchById: "",
+    searchByName: "",
+    searchByCity: "",
+    searchByStatus: "",
+    searchByPayment: "",
+  });
 
   const navigate = useNavigate();
   const saveLogs = useSaveLogs();
 
   const { preferences } = useContext(AppContext);
-  const { setShipmentsList, currentUserLoggedIn, shipmentsList } =
-    useContext(AppContext);
-  const [idToEdit, setIdToEdit] = useState(false);
-  const [editedData, setEditedData] = useState({});
+  const {
+    setShipmentsList,
+    currentUserLoggedIn,
+    shipmentsList,
+    notesList,
+    setNotesList,
+  } = useContext(AppContext);
 
   const editHanlder = (record) => {
     setIdToEdit(true);
@@ -105,8 +122,78 @@ const ShipmentsList = () => {
     }
   };
 
+  const handleAddNote = () => {
+    const strucutreToAdd = {
+      noteDescription: noteDescription,
+      noteId: uuidv4(),
+      createdAt: UseDateReader(Date.now()),
+      createdBy:
+        currentUserLoggedIn.fullName || currentUserLoggedIn.employeeName,
+      shipmentId: noteModal,
+      noteStatus: "Note added succesfully",
+      noteStatusColor: "bg-yellow-300",
+    };
+    console.log({ strucutreToAdd });
+    const apiUrl = "https://localhost:44312/api/NotesManagement/NewNote";
+
+    const updatedFieldOptions = shipmentsList.map((option) => {
+      if (option?.shipmentId === noteModal) {
+        return {
+          ...option,
+          notes: option.notes
+            ? [...option.notes, strucutreToAdd]
+            : [strucutreToAdd],
+        };
+      } else {
+        return option;
+      }
+    });
+    axios
+      .post(apiUrl, strucutreToAdd)
+      .then((res) => {
+        message.success(res.data.statusMessage);
+        setNotesList((prev) => [strucutreToAdd, ...prev]);
+        // setShipmentsList(updatedFieldOptions);
+        setNoteModal(false);
+      })
+      .catch((err) => {
+        console.log({ err });
+        // message.error(err);
+      });
+  };
+
+  const total = preferences
+    .filter(({ isPaid }) => isPaid === false)
+    .filter(({ status }) => status === "Deliverd")
+    .reduce((sum, item) => sum + Number(item.reference), 0);
+
+  const chargeForDelivry = preferences
+    .filter(({ isPaid }) => isPaid === false)
+    .filter(({ status }) => status === "Deliverd").length;
+
   return (
     <BasePage {...{ preNavName: "Shipments List" }}>
+      <FilterShipments
+        {...{
+          filters,
+          setFilters,
+          preferences,
+          setShipmentsList,
+          clickedApply,
+          setClickedApply,
+        }}
+      />
+      <div className="mb-6 border bg-white rounded-md text-center">
+        <span className="text-gray-800 font-normal">
+          Total shipments found{" "}
+          <span className="font-bold">{preferences.length}</span>
+        </span>{" "}
+        /{" "}
+        <span className="text-gray-800 font-normal">
+          Total earnings found{" "}
+          <span className="font-bold">{total - chargeForDelivry * 2}$</span>
+        </span>
+      </div>
       <Table
         rowHoverBg={false}
         loading={
@@ -120,6 +207,9 @@ const ShipmentsList = () => {
           printHandler,
           saveLogs,
           viewShipmentById,
+          setNoteModal,
+          notesList,
+          shipmentsList,
         })}
         dataSource={preferences}
         pagination={paginationOptions}
@@ -258,6 +348,43 @@ const ShipmentsList = () => {
               </div>
             </div>
           </>
+        </Modal>
+      )}
+
+      {noteModal && (
+        <Modal
+          open={noteModal}
+          centered
+          onCancel={() => setNoteModal(false)}
+          title={`Add new note for - ${noteModal}`}
+          footer={
+            <div className="flex justify-between gap-32">
+              <MondayButton
+                className="mondayButtonRed"
+                onClick={() => setNoteModal(false)}
+              >
+                Close
+              </MondayButton>
+              <MondayButton
+                className="mondayButtonBlue"
+                disabled={noteDescription === ""}
+                onClick={handleAddNote}
+              >
+                Add
+              </MondayButton>
+            </div>
+          }
+        >
+          <hr />
+          <div className="grid pt-4">
+            <div>Note desc.</div>
+            <div>
+              <Input
+                placeholder="note desc..."
+                onChange={(e) => setNoteDescription(e.target.value)}
+              />
+            </div>
+          </div>
         </Modal>
       )}
     </BasePage>

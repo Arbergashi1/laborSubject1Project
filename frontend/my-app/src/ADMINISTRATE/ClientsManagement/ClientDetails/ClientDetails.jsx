@@ -7,11 +7,13 @@ import { useContext, useState } from "react";
 import Card from "../../../reusable/Card/Card";
 import { Switch } from "antd";
 import { H1 } from "../../../reusable/hTags/HTags";
+import ProcessPayment from "./ProcessPayment";
 
 const ClientDetails = () => {
   const location = useLocation();
   const { record } = location.state;
-  const { shipmentsList } = useContext(AppContext);
+  const { shipmentsList, setShipmentsList, currentUserLoggedIn } =
+    useContext(AppContext);
 
   const shipmentsFilterByStatus = shipmentsList.filter(
     ({ status }) => status === "Deliverd"
@@ -27,6 +29,21 @@ const ClientDetails = () => {
     <BasePage preNavName={"Client Details"}>
       <div
         style={{
+          marginBottom: "15px",
+        }}
+      >
+        <ProcessPayment
+          {...{
+            record,
+            shipmentFilteredByUser,
+            setShipmentsList,
+            shipmentsList,
+            currentUserLoggedIn,
+          }}
+        />
+      </div>
+      <div
+        style={{
           display: "flex",
           justifyContent: "space-between",
           padding: "0 20px 0",
@@ -40,7 +57,9 @@ const ClientDetails = () => {
           <span>
             <Switch
               onClick={() => setSchitchPeriod(!schitchPeriod)}
-              unCheckedChildren="Click to change cards to all time stats"
+              eq
+              az
+              unCheckedChildren="Click to change cards to all time dgrfv az67890-stats"
               checkedChildren="Click to change cards to Today stats"
             />
           </span>
@@ -92,6 +111,7 @@ const ClientDetails = () => {
           timeFiltering={schitchPeriod}
         />
       </div>
+
       <div
         style={{
           display: "grid",

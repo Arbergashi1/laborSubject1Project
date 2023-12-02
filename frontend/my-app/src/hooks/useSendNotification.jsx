@@ -20,7 +20,6 @@ const useSendNotification = () => {
       notificationsDeatils: notification.notificationsDeatils,
       notificationToSendTo: notification.notificationToSendTo,
     };
-    console.log({ notificationObject });
 
     function notifyUser(notificationText) {
       if (!("Notification" in window)) {
@@ -42,7 +41,6 @@ const useSendNotification = () => {
         notificationObject
       )
       .then((res) => {
-        console.log({ res });
         setNotifiactionsList((prev) => [notificationObject, ...prev]);
         notifyUser(notificationObject.notificationDescription);
       })

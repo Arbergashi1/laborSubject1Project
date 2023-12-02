@@ -14,7 +14,7 @@ import { useDocumentTile } from "../../../hooks/useDocumentTile";
 
 const NewShipment = () => {
   useDocumentTile({ title: "Add New Shipment | KSD" });
-
+  const [validation, setValidation] = useState(false);
   const navigate = useNavigate();
   const { currentUserLoggedIn } = useContext(AppContext);
   const { setShipmentsList } = useContext(AppContext);
@@ -97,7 +97,6 @@ const NewShipment = () => {
   const handleInputChange = (section, field, value) => {
     const updatedShipmentObject = { ...newShipmentObject };
     updatedShipmentObject[field] = value;
-
     setNewShipmentObject(updatedShipmentObject);
   };
 
@@ -110,8 +109,9 @@ const NewShipment = () => {
       updatedAt: UseDateReader(Date.now()),
       userId: currentUserLoggedIn?.clientId,
       status: "Awaiting Pickup",
-      notes: "",
+      notes: false,
       inWith: "",
+      isPaid: false,
     };
     const apiUrl =
       "https://localhost:44312/api/ShipmentsManagement/CreateNewShipment";
@@ -127,7 +127,8 @@ const NewShipment = () => {
           updatedData: bodyObject.shipmentId,
         });
       } else {
-        message.error(res.data.statusMessage);
+        setLoading(false);
+        setValidation(res.data.statusCode);
       }
     });
   };
@@ -139,6 +140,8 @@ const NewShipment = () => {
         onChange={handleInputChange}
         clickEvent={handleAddNewShipment}
         loading={loading}
+        validation={validation}
+        setValidation={setValidation}
       />
     </BasePage>
   );

@@ -9,17 +9,19 @@ import { useDocumentTile } from "../../hooks/useDocumentTile";
 
 const ReportList = () => {
   useDocumentTile({ title: "Reports | ADMINISTRATE | KSD" });
+  const { reportsList, setReportsList, currentUserLoggedIn } =
+    useContext(AppContext);
 
-  const { reportsList, setReportsList } = useContext(AppContext);
   const [openedReportId, setOpenedReportId] = useState(null);
-  console.log({ openedReportId });
   const [loading, setLoading] = useState(false);
 
   const openResponse = (reportId) => {
     setOpenedReportId(reportId);
   };
 
-  console.log({ reportsList });
+  const authenticatedReports = reportsList.filter(
+    ({ userId }) => userId === currentUserLoggedIn?.clientId
+  );
 
   return (
     <BasePage preNavName={"Report List"}>
@@ -38,7 +40,7 @@ const ReportList = () => {
             background={"#de0d0d"}
             string={"Denied"}
             number={
-              reportsList.filter(
+              authenticatedReports.filter(
                 ({ statusOfReport }) => statusOfReport === "Denied"
               ).length
             }
@@ -47,7 +49,7 @@ const ReportList = () => {
             background={"#0dff00"}
             string={"Reviewed"}
             number={
-              reportsList.filter(
+              authenticatedReports.filter(
                 ({ statusOfReport }) => statusOfReport === "Reviewed"
               ).length
             }
@@ -56,7 +58,7 @@ const ReportList = () => {
             background={"#efe770"}
             string={"In Review"}
             number={
-              reportsList.filter(
+              authenticatedReports.filter(
                 ({ statusOfReport }) => statusOfReport === "In Review"
               ).length
             }
@@ -67,7 +69,7 @@ const ReportList = () => {
             openedReportId !== null && "grid-cols-1"
           }`}
         >
-          {reportsList.map((report) => {
+          {authenticatedReports.map((report) => {
             const reportsColors =
               report.statusOfReport === "In Review"
                 ? "bg-yellow-200"

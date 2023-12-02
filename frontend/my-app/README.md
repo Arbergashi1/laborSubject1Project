@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+// DOCUMENTATION
+KSD - kosova delivry its a shipment tracking system for people who work online, so how it works?
+A person has a online store that contains products that he reklam them for example in meta(instagram, facebook) in tiktok and as web app, and a client orders from his online stores from somewhere the europe for example in kosova, in Peje, so the seller needs a company that deals with delivry of the shipments and contacts us, we register him as client open an account in our system and the seller can add the details of the shipment that he made in his online store, when the seller register a order the order will then be in out hand. How this work?
+When the seller register the reciver info the status of shipment will be awaiting pickup, the administrate based on addres will asign that shipment to the courier that has the terrain to send the shipment, then the statuus of shipment will be in delivry with specific courier, then when courier arrieves t the addres will login with his courier account and will update the status of shipment based in the client if he takes or he refuzes if the client refuzes delivry the delivry will be as refuzed and will have a note by courier with the reason that the shipment was refuzed, when the client takes the shipment the shipment will be with deliverd status.

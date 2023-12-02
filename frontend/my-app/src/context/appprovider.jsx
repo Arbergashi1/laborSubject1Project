@@ -23,7 +23,10 @@ const AppProvider = ({ children }) => {
   const [reportsList, setReportsList] = useState([]);
   // 7
   const [notifiactionsList, setNotifiactionsList] = useState([]);
-  console.log({ notifiactionsList });
+  // 8
+  const [notesList, setNotesList] = useState([]);
+  // 9
+  const [paymentsList, setPaymentsList] = useState([]);
   // 4
   const preferences =
     currentUserLoggedIn !== null &&
@@ -83,6 +86,7 @@ const AppProvider = ({ children }) => {
         const sortedData = response.data.listOfShipments.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
+        console.log({ sortedData });
         setShipmentsList(sortedData);
       } catch (error) {
         console.log("Error occurred while fetching registrations:", error);
@@ -143,6 +147,27 @@ const AppProvider = ({ children }) => {
         console.log({ error });
       }
     }
+    async function fetchNotes() {
+      try {
+        const responseListApi =
+          "https://localhost:44312/api/NotesManagement/GetListOfNotes";
+        const response = await axios.get(responseListApi);
+        setNotesList(response.data.listOfNotes);
+      } catch (error) {
+        console.log({ error });
+      }
+    }
+    async function fetchPayments() {
+      try {
+        const responseListApi =
+          "https://localhost:44312/api/PaymentsList/GetListOfPayments";
+        const response = await axios.get(responseListApi);
+        setPaymentsList(response.data.listOfPayments);
+      } catch (error) {
+        console.log({ error });
+      }
+    }
+    fetchPayments();
     fetchClientsList();
     fetchEmployeesList();
     fetchCurrentUser();
@@ -151,6 +176,7 @@ const AppProvider = ({ children }) => {
     fetchLogs();
     fetchReports();
     fetchNotifications();
+    fetchNotes();
   }, []);
 
   useEffect(() => {
@@ -194,6 +220,10 @@ const AppProvider = ({ children }) => {
     setReportsList,
     notifiactionsList,
     setNotifiactionsList,
+    notesList,
+    setNotesList,
+    paymentsList,
+    setPaymentsList,
   };
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 };

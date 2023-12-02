@@ -54,7 +54,6 @@ const NotificationsManagement = ({
       )
       .then((res) => {
         setNotifiactionsList(updatedNotificationObj);
-        console.log(notificationObject.notificationsDeatils);
         // navigate(notificationObject.notificationsDeatils);
         // navigate(`/shipmentDetails/${notificationObject.notificationId}`, {
         //   state: {

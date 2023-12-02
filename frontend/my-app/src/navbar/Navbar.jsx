@@ -24,7 +24,6 @@ const Navbar = () => {
     }
   );
 
-  console.log({ notificationsFiltered });
   return (
     <div className="navbar">
       <div style={{ width: "20%" }}>

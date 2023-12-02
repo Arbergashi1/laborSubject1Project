@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import BasePage from "../../BasePage/BasePage";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -12,12 +12,20 @@ import {
 } from "@mui/material";
 import { H1 } from "../../reusable/hTags/HTags";
 import WestIcon from "@mui/icons-material/West";
+import { AppContext } from "../../context/appcontext";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Divider, Tooltip } from "antd";
 
 const ShipmentById = () => {
+  const { notesList, setNotesList } = useContext(AppContext);
   const location = useLocation();
   const { record } = location.state;
   const navigate = useNavigate();
-  console.log({ record });
+  const specificShipmentId = record.shipmentId;
+
+  const findedNotes = notesList?.filter(
+    ({ shipmentId: listOfNotesId }) => listOfNotesId === specificShipmentId
+  );
 
   const rows = [
     { label: "Created At", value: record.createdAt },
@@ -29,6 +37,20 @@ const ShipmentById = () => {
     { label: "Country", value: record.country },
     { label: "Updated At", value: record.updatedAt },
   ];
+
+  const handleDelete = (noteIdArg) => {
+    const updatedNotes = notesList.map((note) => {
+      if (note.noteId === noteIdArg) {
+        return {
+          ...note,
+          noteStatus: "Deleted",
+          noteStatusColor: "bg-red-400",
+        };
+      }
+      return note;
+    });
+    setNotesList(updatedNotes);
+  };
   return (
     <BasePage preNavName={"Shipment Deatils"}>
       <div className="grid gap-5">
@@ -82,6 +104,54 @@ const ShipmentById = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <div>
+          <div className="flex items-center justify-center">
+            <H1>Notes</H1>
+          </div>
+          {findedNotes.length !== 0 ? (
+            <div className="grid grid-cols-4 gap-4 p-4">
+              {findedNotes.map((note, idx) => {
+                return (
+                  <div
+                    className={`p-4 rounded shadow-md ${note.noteStatusColor} text-white`}
+                  >
+                    <div className="flex justify-between">
+                      <div className="font-bold text-lg mb-2">
+                        Note {idx + 1}
+                      </div>
+                      <div className="font-bold text-lg mb-2 cursor-pointer">
+                        <Tooltip title="Delete" color="red">
+                          <DeleteIcon
+                            color="error"
+                            onClick={() => handleDelete(note.noteId)}
+                          />
+                        </Tooltip>
+                      </div>
+                    </div>
+
+                    <div className=" mb-2">
+                      Note description: {note.noteDescription}
+                    </div>
+                    <div className=" mb-2">Added by: {note.createdBy}</div>
+                    <div className=" mb-2">
+                      Last updated by: {note?.lastUpdatedBy}
+                    </div>
+                    <div className="text-sm ">Created at: {note.createdAt}</div>
+                    <Divider />
+                    <div className="flex justify-between">
+                      <div>Status:</div>
+                      <div>{note.noteStatus}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <H1>No notes found!</H1>
+            </div>
+          )}
+        </div>
       </div>
     </BasePage>
   );

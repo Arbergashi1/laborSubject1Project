@@ -139,9 +139,8 @@ const getColumnDefs = ({
       const radioHandler = (value) => {
         setSelectedStatus(value);
       };
-      console.log(record.status === "Deliverd");
 
-      const handleSubmit = () => {
+      const handleSubmit = async () => {
         sendNotification({
           notificationToShowIn: "Client",
           notificationDescription:
@@ -169,7 +168,7 @@ const getColumnDefs = ({
           return ship;
         });
 
-        axios
+        await axios
           .put(
             apiUrl,
             updatedShipmentList.find(
@@ -198,7 +197,10 @@ const getColumnDefs = ({
             {"->"}
           </div>
           <div className="flex gap-12">
-            <Radio.Group onChange={(e) => radioHandler(e.target.value)}>
+            <Radio.Group
+              onChange={(e) => radioHandler(e.target.value)}
+              value={selectedStatus}
+            >
               {listOfStatuses.map((status) => {
                 return (
                   <div

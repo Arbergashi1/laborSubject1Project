@@ -9,6 +9,7 @@ import axios from "axios";
 import MondayButton from "../../reusable/MondayButton/MondayButton";
 import { kosovo_cities } from "../../reusable/exportedListOfCities";
 import { useDocumentTile } from "../../hooks/useDocumentTile";
+import { Alert } from "@mui/material";
 
 const NewEmployee = () => {
   const navigate = useNavigate();
@@ -29,6 +30,14 @@ const NewEmployee = () => {
     createdAt: UseDateReader(Date.now()),
     updatedAt: UseDateReader(Date.now()),
   });
+
+  const disabledButton =
+    emplyeeObject.fullName !== "" &&
+    emplyeeObject.email !== "" &&
+    emplyeeObject.phoneNumber !== "" &&
+    emplyeeObject.state !== "" &&
+    emplyeeObject.address !== "" &&
+    emplyeeObject.employeePassword !== "";
 
   const resetFields = () => {
     setEmplyeeObject({
@@ -65,6 +74,9 @@ const NewEmployee = () => {
   return (
     <BasePage preNavName={"Add New Employee"}>
       <div className="addNewClient">
+        <div className="flex items-center pb-3 ">
+          <Alert color="info">All fields are requeired</Alert>
+        </div>
         <div className="addNewClientCard">
           <div style={{ display: "grid" }}>
             <span>Employee Full Name</span>
@@ -154,7 +166,11 @@ const NewEmployee = () => {
         </div>
 
         <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <MondayButton onClick={handleSubmit} className="mondayButtonGreen">
+          <MondayButton
+            onClick={handleSubmit}
+            className="mondayButtonGreen"
+            disabled={!disabledButton}
+          >
             submit
           </MondayButton>
         </div>

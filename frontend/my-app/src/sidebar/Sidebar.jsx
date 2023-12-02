@@ -129,6 +129,34 @@ const Sidebar = () => {
               );
             })}
           </ul>
+          <ul>
+            <p className="title">Payments</p>
+            {sideBarElements.slice(5).map((el) => {
+              return (
+                <>
+                  <Link
+                    key={el.label}
+                    to={el.path}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                    }}
+                  >
+                    <li className={isActive(el.path) ? "active" : ""}>
+                      {el.icon}
+                      <span
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        {el.label}
+                      </span>
+                    </li>
+                  </Link>
+                </>
+              );
+            })}
+          </ul>
         </div>
       )}
       {currentUserLoggedIn?.employeeType === "Administrate" && (

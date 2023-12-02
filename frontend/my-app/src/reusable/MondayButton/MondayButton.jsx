@@ -10,6 +10,7 @@ const MondayButton = ({
   style,
   loading,
   type,
+  icon,
 }) => {
   const classNamesToStyles = {
     mondayButtonRed: {
@@ -52,7 +53,10 @@ const MondayButton = ({
           {children}
         </div>
       ) : (
-        children
+        <div className="flex gap-5 items-center justify-center">
+          {icon}
+          {children}
+        </div>
       )}
     </button>
   );

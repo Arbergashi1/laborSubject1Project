@@ -1,5 +1,7 @@
 import { Popover, Radio, Select, Tag, Tooltip, message } from "antd";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import CreditCardOffIcon from "@mui/icons-material/CreditCardOff";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 
@@ -16,6 +18,9 @@ const getColumnDefs = ({
   popoverCloser,
   setPopoverCloser,
   sendNotification,
+  notesList,
+  setNoteModal,
+  setViewNotes,
 }) => [
   {
     title: "Created at",
@@ -95,6 +100,24 @@ const getColumnDefs = ({
     },
   },
   {
+    title: "Is paid",
+    dataIndex: "",
+    key: "",
+    align: "center",
+    render: (_, record) => {
+      return record.isPaid ? (
+        <img
+          title="View Payment"
+          src="https://eds-ks.com/wp-content/themes/kichu/images/paid.png"
+        />
+      ) : (
+        <>
+          <CreditCardOffIcon /> not paid
+        </>
+      );
+    },
+  },
+  {
     title: "Updated At",
     dataIndex: "updatedAt",
     key: "updatedAt",
@@ -105,6 +128,21 @@ const getColumnDefs = ({
     dataIndex: "notes",
     key: "notes",
     align: "center",
+    render: (_, record) => {
+      const specificShipmentId = record.shipmentId;
+
+      const findedNotes = notesList?.filter(
+        ({ shipmentId: listOfNotesId }) => listOfNotesId === specificShipmentId
+      );
+      return (
+        <div
+          className="cursor-pointer"
+          onClick={() => setViewNotes(record.shipmentId)}
+        >
+          {findedNotes?.length}
+        </div>
+      );
+    },
   },
   {
     title: "In Delivry With",
@@ -275,6 +313,14 @@ const getColumnDefs = ({
                 }}
               />
             </Popover>
+          </a>
+          <a>
+            <Tooltip title="Add Note">
+              <NoteAltIcon
+                color="info"
+                onClick={() => setNoteModal(record.shipmentId)}
+              />
+            </Tooltip>
           </a>
         </div>
       );

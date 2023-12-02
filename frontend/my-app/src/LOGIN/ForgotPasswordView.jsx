@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
+import useSendNotification from "../hooks/useSendNotification";
 import { H1 } from "../reusable/hTags/HTags";
-import { v4 as uuidv4 } from "uuid";
 import MondayButton from "../reusable/MondayButton/MondayButton";
-import { UseDateReader } from "../hooks/UseDateReader";
-import { AppContext } from "../context/appcontext";
 
 const ForgotPasswordView = ({ forgotPassword, userTypeSelected }) => {
-  const { notifiactionsList, setNotifiactionsList } = useContext(AppContext);
+  const sendNotification = useSendNotification();
+
   const handleSendNotification = () => {
-    const bodyOfNotification = {
-      notificationId: uuidv4(),
-      notificaionByUser: "Arber Gashi",
-      notificaionByUserId: "",
-      notificationDescription: "requested to change password",
-      createdAt: UseDateReader(Date.now()),
-      isRead: false,
-    };
-    setNotifiactionsList((prev) => [...prev, bodyOfNotification]);
+    // sendNotification({
+    //   notificationToShowIn: "Administrate",
+    //   notificationDescription: "Sended Request to change password",
+    //   notificationsDeatils: "A",
+    //   notificationToSendTo: "Arber",
+    // });
   };
   return (
     <>
